@@ -22,6 +22,10 @@ function sendJson(response, statusCode, payload) {
   response.end(JSON.stringify(payload));
 }
 
+function logAiEvent(message, detail = {}) {
+  console.log(`[ai] ${message}`, JSON.stringify(detail));
+}
+
 async function readRequestJson(request) {
   const chunks = [];
   for await (const chunk of request) chunks.push(chunk);
@@ -45,6 +49,7 @@ function buildPrompt(payload) {
 
 async function callOpenAI(payload) {
   if (!process.env.OPENAI_API_KEY) {
+    logAiEvent("fallback", { reason: "OPENAI_API_KEY missing" });
     return { fallback: true, error: "OPENAI_API_KEY is not configured." };
   }
 
@@ -68,15 +73,22 @@ async function callOpenAI(payload) {
 
   if (!apiResponse.ok) {
     const detail = await apiResponse.text();
+    logAiEvent("openai error", {
+      status: apiResponse.status,
+      statusText: apiResponse.statusText,
+      detail: detail.slice(0, 600)
+    });
     return { fallback: true, error: detail };
   }
 
   const data = await apiResponse.json();
   const output = data.output_text || "";
+  logAiEvent("openai ok", { model, hasOutput: Boolean(output) });
 
   try {
     return JSON.parse(output);
   } catch {
+    logAiEvent("json parse fallback", { output: output.slice(0, 300) });
     return {
       reply: output.trim() || "Could you say a little more about that?",
       score: 78,
@@ -89,9 +101,17 @@ async function callOpenAI(payload) {
 async function handleAiChat(request, response) {
   try {
     const payload = await readRequestJson(request);
+    logAiEvent("chat request", {
+      scenario: payload.scenario,
+      messageCount: Array.isArray(payload.messages) ? payload.messages.length : 0,
+      aiConfigured: Boolean(process.env.OPENAI_API_KEY),
+      model
+    });
     const result = await callOpenAI(payload);
+    logAiEvent("chat response", { fallback: Boolean(result.fallback), score: result.score });
     sendJson(response, 200, result);
   } catch (error) {
+    logAiEvent("server error", { error: error.message });
     sendJson(response, 500, { fallback: true, error: error.message });
   }
 }
