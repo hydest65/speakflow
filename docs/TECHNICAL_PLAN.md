@@ -6,7 +6,8 @@
 
 - HTML
 - CSS
-- JavaScript
+- JavaScript 数据驱动渲染
+- Node.js 后端代理
 - 本地图片资源
 - 模拟数据
 
@@ -22,70 +23,34 @@ ai.html          AI陪练
 pricing.html     会员 + 学习记录
 learn.html       视频跟读训练页
 styles.css       全局样式
-app.js           字幕点击高亮交互
+app.js           视频数据、筛选、收藏、学习进度、AI 陪练模拟、收藏夹渲染和字幕点击高亮交互
+server.js        静态文件服务和 OpenAI API 后端代理
+package.json     Node 启动脚本
+.env.example     本地环境变量模板，不包含真实密钥
 assets/          Logo 和图片资源
 docs/            项目文档
+references/      轻量项目记忆和收尾流程
 ```
-
-`courses.html` 和 `profile.html` 已从主结构移除。学习记录合并到会员页。
 
 ## 3. 页面职责
 
-### 视频库
+视频库负责今日学习状态、今日任务、推荐视频、视频筛选和视频卡片。
 
-入口页，负责：
+收藏夹负责展示已收藏视频、进入对应学习页，并提供空状态引导。
 
-- 今日学习状态。
-- 今日任务。
-- 今日推荐视频。
-- 视频筛选。
-- 视频卡片列表。
+Tips 负责展示真实视频学习方法。
 
-### 收藏夹
+AI陪练负责展示场景列表、对话区、输入入口、评分和建议。
 
-负责：
+AI 陪练优先调用 `/api/ai/chat`。后端从 `OPENAI_API_KEY` 环境变量读取密钥并调用 OpenAI Responses API；如果后端不可用或 Key 未配置，前端自动回退到本地模拟回复。
 
-- 展示收藏视频。
-- 进入对应学习页。
-- 引导回视频库。
+后端还提供 `GET /api/health`，用于部署后检查服务是否可访问，以及当前是否配置了 OpenAI API Key。
 
-### Tips
+会员页负责展示学习记录、年度会员权益和开通入口。
 
-负责：
-
-- 展示真实视频学习方法。
-- 引导进入跟读训练。
-
-### AI陪练
-
-负责：
-
-- 展示场景列表。
-- 展示对话区。
-- 提供文字和语音输入入口。
-- 展示表达完整度评分和建议。
-
-### 会员
-
-负责：
-
-- 展示学习记录。
-- 展示年度会员权益。
-- 引导开通年度会员。
-
-### 跟读训练页
-
-负责：
-
-- 播放视频。
-- 展示逐句字幕。
-- 点击字幕高亮。
-- 展示跟读录音入口。
-- 展示 AI 评分和建议。
+跟读训练页负责展示视频、逐句字幕、跟读录音入口、AI 评分和重点表达。
 
 ## 4. 后续数据模型
-
-### Video
 
 ```ts
 type Video = {
@@ -100,11 +65,7 @@ type Video = {
   videoUrl: string;
   isFavorite: boolean;
 };
-```
 
-### Sentence
-
-```ts
 type Sentence = {
   id: string;
   videoId: string;
@@ -117,87 +78,22 @@ type Sentence = {
 };
 ```
 
-### AiScenario
-
-```ts
-type AiScenario = {
-  id: string;
-  title: string;
-  userRole: string;
-  aiRole: string;
-  openingMessage: string;
-  difficulty: "beginner" | "intermediate" | "advanced";
-};
-```
-
-### UserProgress
-
-```ts
-type UserProgress = {
-  streakDays: number;
-  totalLearningDays: number;
-  completedVideoCount: number;
-  averageAiScore: number;
-  recentLearningItems: string[];
-  weeklyReport: string;
-};
-```
-
 ## 5. 推荐升级路线
 
-### 阶段 1：静态原型增强
+阶段 1：静态原型增强。
 
-- 用本地 JS 数据驱动视频列表。
-- 用 localStorage 保存收藏视频。
-- 用 localStorage 保存打卡状态。
-- 用模拟数据展示 AI 评分。
+- 用本地 JS 数据驱动视频列表。已完成第一版。
+- 用 `localStorage` 保存收藏视频。已完成第一版。
+- 用 `localStorage` 保存打卡状态。开发中。
+- 用模拟数据展示 AI 评分。已用于跟读和 AI 陪练原型。
 
-### 阶段 2：React 应用化
-
-推荐：
+阶段 2：React 应用化。
 
 - Vite + React。
 - TypeScript。
 - 组件化导航、视频卡片、字幕列表、AI 对话、会员记录。
 
-### 阶段 3：后端产品化
+阶段 3：后端产品化。
 
-推荐接口：
-
-- `GET /api/videos`
-- `GET /api/videos/:id`
-- `GET /api/videos/:id/sentences`
-- `GET /api/favorites/videos`
-- `POST /api/favorites/videos`
-- `DELETE /api/favorites/videos/:videoId`
-- `POST /api/recordings`
-- `POST /api/speaking-score`
-- `GET /api/progress`
-- `GET /api/ai/scenarios`
-- `POST /api/ai/messages`
-- `POST /api/checkout/yearly`
-
-## 6. 开发优先级
-
-P0：
-
-- 新导航结构。
-- 视频库、收藏夹、Tips、AI陪练、会员页面可访问。
-- 学习记录并入会员页。
-- 跟读页三栏结构。
-
-P1：
-
-- 收藏视频可交互。
-- 视频筛选可交互。
-- 今日任务进度可交互。
-- 打卡状态可保存。
-
-P2：
-
-- 录音上传。
-- AI 评分。
-- AI 对话。
-- 登录。
-- 年度会员支付。
-
+- 视频、收藏、录音、AI 评分、学习进度和支付 API。AI 后端代理已完成第一版。
+- 用户登录和会员权限。

@@ -6,10 +6,13 @@
   <title>Tips | SpeakFlow</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-page="tips">
   <header class="topbar">
-    <a class="logo" href="index.html"><span class="logo-mark"><span></span></span><span class="logo-type"><strong>SpeakFlow</strong><small>Real Video Speaking Lab</small></span></a>
-    <nav class="pill-nav">
+    <a class="logo" href="index.html" aria-label="SpeakFlow 首页">
+      <span class="logo-mark"><span></span></span>
+      <span class="logo-type"><strong>SpeakFlow</strong><small>Real Video Speaking Lab</small></span>
+    </a>
+    <nav class="pill-nav" aria-label="主导航">
       <a href="index.html">视频库</a>
       <a href="favorites.html">收藏夹</a>
       <a class="active" href="tips.html">Tips</a>
@@ -18,24 +21,44 @@
     </nav>
   </header>
 
-  <main class="page-wrap">
-    <section class="panel intro-panel">
-      <div>
-        <p class="eyebrow">Learning Tips</p>
-        <h1>把真实视频变成口语素材</h1>
-        <p>不用追求一次听懂全部。先抓场景，再拆句子，最后把句型换成自己的表达。</p>
+  <main class="tips-workbench">
+    <aside class="tips-video-rail">
+      <div class="rail-head">
+        <h1>视频库</h1>
+        <p>选择一个视频，查看可复用语言素材。</p>
       </div>
-      <a class="button primary" href="learn.html">开始跟读</a>
-    </section>
+      <label class="rail-search">
+        <span>搜索视频</span>
+        <input id="tips-search" type="search" placeholder="搜索视频...">
+      </label>
+      <div class="tips-video-list" id="tips-video-list"></div>
+    </aside>
 
-    <section class="tips-grid">
-      <article class="tip-card"><span>01</span><h2>先看场景，不急着查词</h2><p>第一遍只判断人物关系、地点、情绪和大意，让大脑先进入真实语境。</p></article>
-      <article class="tip-card"><span>02</span><h2>每次只精听 3 到 5 句</h2><p>选择最常用、最想说出口的句子，反复听停顿、重音和连读。</p></article>
-      <article class="tip-card"><span>03</span><h2>跟读要模仿节奏</h2><p>不只是念对单词，更要模仿语气、停顿和句子速度，口语会更自然。</p></article>
-      <article class="tip-card"><span>04</span><h2>把原句改成自己的句子</h2><p>例如把 “I usually grab a coffee” 改成你的真实习惯，形成可复用表达。</p></article>
-      <article class="tip-card"><span>05</span><h2>收藏的是高价值视频</h2><p>第一版收藏夹只放视频，优先保存你愿意反复听、反复跟读的内容。</p></article>
-      <article class="tip-card"><span>06</span><h2>用打卡记录保持节奏</h2><p>每天短时间高质量训练，比周末一次性学很久更容易形成口语反应。</p></article>
+    <section class="tips-expression-area">
+      <section class="tips-expression-head">
+        <div>
+          <p class="eyebrow">Expression Lab</p>
+          <h1 id="tips-video-title">真实视频表达库</h1>
+          <p id="tips-video-summary">从一个视频里拆出单词、短语和地道表达，直接拿去听、说、复习。</p>
+        </div>
+        <a class="button primary" id="tips-learn-link" href="learn.html">进入跟读</a>
+      </section>
+
+      <div class="tips-tabs" role="tablist" aria-label="表达类型">
+        <button class="active" type="button" data-expression-tab="words">单词</button>
+        <button type="button" data-expression-tab="phrases">短语</button>
+        <button type="button" data-expression-tab="native">地道表达</button>
+      </div>
+
+      <div class="tips-toolbar">
+        <div class="filter-chips" id="expression-filters"></div>
+        <button class="button secondary" type="button" id="toggle-chinese">隐藏中文</button>
+      </div>
+
+      <section class="expression-grid" id="expression-grid" aria-live="polite"></section>
     </section>
   </main>
+
+  <script src="app.js"></script>
 </body>
 </html>

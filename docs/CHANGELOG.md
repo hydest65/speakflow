@@ -1,27 +1,51 @@
 # SpeakFlow Changelog
 
-## 0.1.0 - 2026-04-28
-
-首个可部署静态原型版本。
+## Unreleased
 
 ### Added
 
-- 视频库作为默认入口。
-- 收藏夹页面，第一版只收藏视频。
-- Tips 页面，展示真实视频学习方法。
-- AI陪练页面，包含场景列表、对话区和反馈区。
-- 会员页面，合并年度会员权益和学习记录。
-- 跟读训练页，使用视频 / 逐句字幕 / AI评分三栏结构。
-- Render 静态站配置 `render.yaml`。
-- Render 部署说明 `docs/RENDER_DEPLOY.md`。
+- Added local learning progress for sentence practice, shadowing, AI score state, daily check-in, and member learning records.
+- Added interactive AI speaking scenarios with local simulated replies, scoring, and feedback.
+- Connected AI speaking practice scores and practice rounds to the member learning record.
+- Added a temporary CC0 demo video on the learning page to test the media player flow.
+- Reworked Tips into a video-based expression lab with tabs for words, phrases, and native expressions.
+- Added a Node.js backend proxy for `/api/ai/chat`, with OpenAI Responses API support and local fallback in the frontend.
+- Added `.env.example`, `/api/health`, and clearer AI mode messaging for deployment checks.
 
-### Changed
+## 0.1.2 - 2026-04-28
 
-- 顶部导航确定为：视频库 / 收藏夹 / Tips / AI陪练 / 会员。
-- 学习记录不再单独放顶部导航，合并到会员页。
-- 视觉系统切换为深蓝、亮蓝、青色的现代 SaaS 工具风格。
-- 导航 LOGO 改为 HTML/CSS 绘制的小型品牌标识。
+### Added
+
+- Added local JavaScript video data as the shared source for the video library, favorites page, and learning page.
+- Added interactive video filtering by topic, difficulty, duration, and source.
+- Added video favorite toggles with `localStorage` persistence.
+- Added a dynamic favorites page that reflects the user's saved videos.
+- Added dynamic learning-page content based on the selected video.
+
+## 0.1.1 - 2026-04-28
+
+### Fixed
+
+- Restored corrupted Chinese text across the static pages.
+- Fixed malformed HTML tags in the navigation, AI practice, pricing, and learning pages.
+- Removed decorative page background orbs and kept the interface closer to a restrained learning workbench.
+- Restored core project documentation to readable UTF-8 Chinese.
+- Added lightweight project references for future skill-based continuation.
+
+## 0.1.0 - 2026-04-28
+
+### Added
+
+- First deployable static prototype.
+- Video library as the default entry page.
+- Favorites page for saved videos.
+- Tips page for real-video learning methods.
+- AI speaking practice page with scenario list, dialogue area, and feedback panel.
+- Membership page combining yearly membership value and learning records.
+- Follow-along learning page with video, sentence practice, and AI score columns.
+- Render static site configuration in `render.yaml`.
+- Render deployment notes in `docs/RENDER_DEPLOY.md`.
 
 ### Notes
 
-- 当前版本为静态原型，尚未接入真实视频、登录、收藏持久化、录音上传、AI评分接口和年度会员支付。
+- This version is still a static prototype. Real video playback, login, persistent favorites, recording upload, AI scoring APIs, and yearly membership payment are not connected yet.

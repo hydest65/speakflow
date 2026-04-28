@@ -1,0 +1,10 @@
+{
+  "name": "speakflow",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check app.js && node --check server.js"
+  }
+}

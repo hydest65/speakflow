@@ -6,10 +6,13 @@
   <title>AI陪练 | SpeakFlow</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-page="ai">
   <header class="topbar">
-    <a class="logo" href="index.html"><span class="logo-mark"><span></span></span><span class="logo-type"><strong>SpeakFlow</strong><small>Real Video Speaking Lab</small></span></a>
-    <nav class="pill-nav">
+    <a class="logo" href="index.html" aria-label="SpeakFlow 首页">
+      <span class="logo-mark"><span></span></span>
+      <span class="logo-type"><strong>SpeakFlow</strong><small>Real Video Speaking Lab</small></span>
+    </a>
+    <nav class="pill-nav" aria-label="主导航">
       <a href="index.html">视频库</a>
       <a href="favorites.html">收藏夹</a>
       <a href="tips.html">Tips</a>
@@ -23,51 +26,18 @@
       <div>
         <p class="eyebrow">AI Speaking</p>
         <h1>选择真实场景，和 AI 开口练对话</h1>
-        <p>第一版支持文字和语音输入，AI 会根据场景追问，并在结束后给出表达建议。</p>
+        <p>先用本地模拟对话验证练习体验。后续接入真实 AI 后，可以复用同一套场景和反馈结构。</p>
       </div>
       <a class="button primary" href="#practice">开始陪练</a>
     </section>
 
     <section class="ai-layout" id="practice">
-      <aside class="panel scenario-list">
-        <h2>场景</h2>
-        <button class="scenario active">咖啡店点单<span>初级 · 5分钟</span></button>
-        <button class="scenario">酒店入住<span>初级 · 6分钟</span></button>
-        <button class="scenario">英文会议接话<span>中级 · 8分钟</span></button>
-        <button class="scenario">面试自我介绍<span>中级 · 8分钟</span></button>
-      </aside>
-
-      <section class="panel chat-panel">
-        <div class="chat-message ai">
-          <span>AI</span>
-          <p>Hi! What can I get for you today?</p>
-        </div>
-        <div class="chat-message user">
-          <span>You</span>
-          <p>I'd like a latte, please.</p>
-        </div>
-        <div class="chat-message ai">
-          <span>AI</span>
-          <p>Sure. Would you like it hot or iced?</p>
-        </div>
-        <div class="chat-input">
-          <input type="text" placeholder="输入英文回答，或点击语音按钮开口">
-          <button>语音</button>
-          <button class="primary-send">发送</button>
-        </div>
-      </section>
-
-      <aside class="panel feedback-panel">
-        <p class="eyebrow">Session Goal</p>
-        <h2>完成一次自然点单</h2>
-        <p>尝试说出饮品、冷热、尺寸，并回应店员追问。</p>
-        <div class="score-box">
-          <strong>86</strong>
-          <span>表达完整度</span>
-        </div>
-        <p class="feedback-text">建议下次补充尺寸，例如 “Can I get a medium iced latte?” 会更完整。</p>
-      </aside>
+      <aside class="panel scenario-list" id="ai-scenarios"></aside>
+      <section class="panel chat-panel" id="ai-chat"></section>
+      <aside class="panel feedback-panel" id="ai-feedback"></aside>
     </section>
   </main>
+
+  <script src="app.js"></script>
 </body>
 </html>

@@ -6,10 +6,13 @@
   <title>收藏夹 | SpeakFlow</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-page="favorites">
   <header class="topbar">
-    <a class="logo" href="index.html"><span class="logo-mark"><span></span></span><span class="logo-type"><strong>SpeakFlow</strong><small>Real Video Speaking Lab</small></span></a>
-    <nav class="pill-nav">
+    <a class="logo" href="index.html" aria-label="SpeakFlow 首页">
+      <span class="logo-mark"><span></span></span>
+      <span class="logo-type"><strong>SpeakFlow</strong><small>Real Video Speaking Lab</small></span>
+    </a>
+    <nav class="pill-nav" aria-label="主导航">
       <a href="index.html">视频库</a>
       <a class="active" href="favorites.html">收藏夹</a>
       <a href="tips.html">Tips</a>
@@ -17,7 +20,6 @@
       <a href="pricing.html">会员</a>
     </nav>
   </header>
-
   <main class="page-wrap">
     <section class="panel intro-panel">
       <div>
@@ -27,32 +29,8 @@
       </div>
       <a class="button primary" href="index.html">去视频库</a>
     </section>
-
-    <section class="video-grid">
-      <article class="video-card">
-        <div class="thumb meeting"><span>6分钟</span></div>
-        <div class="card-body">
-          <h2>会议里如何自然接话</h2>
-          <p>已收藏 · 职场表达 · 今日推荐</p>
-          <div class="card-foot"><strong>中级</strong><a href="learn.html">继续学习</a></div>
-        </div>
-      </article>
-      <article class="video-card">
-        <div class="thumb travel"><span>3分钟</span></div>
-        <div class="card-body">
-          <h2>酒店入住真实对话</h2>
-          <p>已收藏 · 旅行英语 · 适合复习</p>
-          <div class="card-foot"><strong>初级</strong><a href="learn.html">继续学习</a></div>
-        </div>
-      </article>
-      <article class="video-card empty-state">
-        <div class="card-body">
-          <h2>更多收藏会出现在这里</h2>
-          <p>后续点击视频卡片的收藏按钮后，会按最近收藏排序展示。</p>
-          <a class="button secondary" href="index.html">浏览视频</a>
-        </div>
-      </article>
-    </section>
+    <section class="video-grid" id="favorites-grid" aria-live="polite"></section>
   </main>
+  <script src="app.js"></script>
 </body>
 </html>

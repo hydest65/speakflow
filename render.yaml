@@ -1,7 +1,12 @@
 services:
   - type: web
     name: speakflow
-    env: static
-    buildCommand: ""
-    staticPublishPath: .
+    env: node
+    buildCommand: "npm install"
+    startCommand: "npm start"
     pullRequestPreviewsEnabled: true
+    envVars:
+      - key: OPENAI_MODEL
+        value: gpt-5-mini
+      - key: OPENAI_API_KEY
+        sync: false
