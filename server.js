@@ -116,6 +116,19 @@ async function handleAiChat(request, response) {
   }
 }
 
+async function handleAiDebug(response) {
+  const payload = {
+    scenario: "coffee",
+    scenarioTitle: "咖啡店点单",
+    goal: "完成一次自然点单",
+    messages: [{ role: "user", content: "I'd like a medium iced latte, please." }]
+  };
+  logAiEvent("debug request", { aiConfigured: Boolean(process.env.OPENAI_API_KEY), model });
+  const result = await callOpenAI(payload);
+  logAiEvent("debug response", { fallback: Boolean(result.fallback), score: result.score });
+  sendJson(response, 200, result);
+}
+
 function handleHealth(response) {
   sendJson(response, 200, {
     ok: true,
@@ -148,6 +161,11 @@ async function serveStatic(request, response) {
 const server = createServer(async (request, response) => {
   if (request.method === "GET" && request.url === "/api/health") {
     handleHealth(response);
+    return;
+  }
+
+  if (request.method === "GET" && request.url === "/api/ai/debug") {
+    await handleAiDebug(response);
     return;
   }
 

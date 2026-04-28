@@ -11,6 +11,7 @@
 - Reworked Tips into a video-based expression lab with tabs for words, phrases, and native expressions.
 - Added a Node.js backend proxy for `/api/ai/chat`, with OpenAI Responses API support and local fallback in the frontend.
 - Added `.env.example`, `/api/health`, and clearer AI mode messaging for deployment checks.
+- Added `/api/ai/debug` for browser-based backend AI diagnostics.
 
 ## 0.1.2 - 2026-04-28
 
