@@ -42,9 +42,9 @@ Tips 负责展示真实视频学习方法。
 
 AI陪练负责展示场景列表、对话区、输入入口、评分和建议。
 
-AI 陪练优先调用 `/api/ai/chat`。后端从 `OPENAI_API_KEY` 环境变量读取密钥并调用 OpenAI Responses API；如果后端不可用或 Key 未配置，前端自动回退到本地模拟回复。
+AI 陪练优先调用 `/api/ai/chat`。后端通过 `AI_PROVIDER` 选择模型供应商：默认 `minimax`，读取 `MINIMAX_API_KEY` 并调用 MiniMax OpenAI-compatible Chat Completions；也保留 `openai` 作为备用。若后端不可用或 Key 未配置，前端自动回退到本地模拟回复。
 
-后端还提供 `GET /api/health`，用于部署后检查服务是否可访问，以及当前是否配置了 OpenAI API Key。
+后端还提供 `GET /api/health`，用于部署后检查服务是否可访问，以及当前 provider 是否配置了 API Key。
 
 会员页负责展示学习记录、年度会员权益和开通入口。
 

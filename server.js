@@ -4,7 +4,9 @@ import { extname, join, normalize } from "node:path";
 
 const rootDir = process.cwd();
 const port = Number(process.env.PORT || 3000);
-const model = process.env.OPENAI_MODEL || "gpt-5-mini";
+const aiProvider = (process.env.AI_PROVIDER || "minimax").toLowerCase();
+const openaiModel = process.env.OPENAI_MODEL || "gpt-5-mini";
+const minimaxModel = process.env.MINIMAX_MODEL || "MiniMax-M2.7";
 
 const contentTypes = {
   ".html": "text/html; charset=utf-8",
@@ -60,7 +62,7 @@ async function callOpenAI(payload) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      model,
+      model: openaiModel,
       instructions: [
         "You are SpeakFlow's English speaking coach for adult Chinese learners.",
         "Keep replies short, practical, and scenario-specific.",
@@ -83,7 +85,7 @@ async function callOpenAI(payload) {
 
   const data = await apiResponse.json();
   const output = data.output_text || "";
-  logAiEvent("openai ok", { model, hasOutput: Boolean(output) });
+  logAiEvent("openai ok", { model: openaiModel, hasOutput: Boolean(output) });
 
   try {
     return JSON.parse(output);
@@ -98,16 +100,91 @@ async function callOpenAI(payload) {
   }
 }
 
+async function callMiniMax(payload) {
+  if (!process.env.MINIMAX_API_KEY) {
+    logAiEvent("fallback", { reason: "MINIMAX_API_KEY missing" });
+    return { fallback: true, error: "MINIMAX_API_KEY is not configured." };
+  }
+
+  const apiResponse = await fetch("https://api.minimax.io/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.MINIMAX_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: minimaxModel,
+      messages: [
+        {
+          role: "system",
+          content: [
+            "You are SpeakFlow's English speaking coach for adult Chinese learners.",
+            "Keep replies short, practical, and scenario-specific.",
+            "Return only valid JSON with keys reply, score, feedback, suggestion.",
+            "feedback must be Chinese. reply and suggestion must be English."
+          ].join(" ")
+        },
+        { role: "user", content: buildPrompt(payload) }
+      ],
+      temperature: 0.6,
+      max_tokens: 400,
+      stream: false
+    })
+  });
+
+  if (!apiResponse.ok) {
+    const detail = await apiResponse.text();
+    logAiEvent("minimax error", {
+      status: apiResponse.status,
+      statusText: apiResponse.statusText,
+      detail: detail.slice(0, 600)
+    });
+    return { fallback: true, error: detail };
+  }
+
+  const data = await apiResponse.json();
+  const output = data.choices?.[0]?.message?.content || "";
+  logAiEvent("minimax ok", { model: minimaxModel, hasOutput: Boolean(output) });
+
+  try {
+    return JSON.parse(output);
+  } catch {
+    logAiEvent("json parse fallback", { provider: "minimax", output: output.slice(0, 300) });
+    return {
+      reply: output.trim() || "Could you say a little more about that?",
+      score: 78,
+      feedback: "模型返回了自然回复，但格式不是完整 JSON。当前已转为可显示内容。",
+      suggestion: "Try giving one more specific detail."
+    };
+  }
+}
+
+function isAiConfigured() {
+  if (aiProvider === "openai") return Boolean(process.env.OPENAI_API_KEY);
+  return Boolean(process.env.MINIMAX_API_KEY);
+}
+
+function getActiveModel() {
+  if (aiProvider === "openai") return openaiModel;
+  return minimaxModel;
+}
+
+async function callAiProvider(payload) {
+  if (aiProvider === "openai") return callOpenAI(payload);
+  return callMiniMax(payload);
+}
+
 async function handleAiChat(request, response) {
   try {
     const payload = await readRequestJson(request);
     logAiEvent("chat request", {
       scenario: payload.scenario,
       messageCount: Array.isArray(payload.messages) ? payload.messages.length : 0,
-      aiConfigured: Boolean(process.env.OPENAI_API_KEY),
-      model
+      aiConfigured: isAiConfigured(),
+      provider: aiProvider,
+      model: getActiveModel()
     });
-    const result = await callOpenAI(payload);
+    const result = await callAiProvider(payload);
     logAiEvent("chat response", { fallback: Boolean(result.fallback), score: result.score });
     sendJson(response, 200, result);
   } catch (error) {
@@ -123,8 +200,8 @@ async function handleAiDebug(response) {
     goal: "完成一次自然点单",
     messages: [{ role: "user", content: "I'd like a medium iced latte, please." }]
   };
-  logAiEvent("debug request", { aiConfigured: Boolean(process.env.OPENAI_API_KEY), model });
-  const result = await callOpenAI(payload);
+  logAiEvent("debug request", { aiConfigured: isAiConfigured(), provider: aiProvider, model: getActiveModel() });
+  const result = await callAiProvider(payload);
   logAiEvent("debug response", { fallback: Boolean(result.fallback), score: result.score });
   sendJson(response, 200, result);
 }
@@ -132,8 +209,9 @@ async function handleAiDebug(response) {
 function handleHealth(response) {
   sendJson(response, 200, {
     ok: true,
-    aiConfigured: Boolean(process.env.OPENAI_API_KEY),
-    model,
+    aiConfigured: isAiConfigured(),
+    provider: aiProvider,
+    model: getActiveModel(),
     service: "speakflow"
   });
 }

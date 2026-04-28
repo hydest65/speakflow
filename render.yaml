@@ -6,6 +6,12 @@ services:
     startCommand: "npm start"
     pullRequestPreviewsEnabled: true
     envVars:
+      - key: AI_PROVIDER
+        value: minimax
+      - key: MINIMAX_MODEL
+        value: MiniMax-M2.7
+      - key: MINIMAX_API_KEY
+        sync: false
       - key: OPENAI_MODEL
         value: gpt-5-mini
       - key: OPENAI_API_KEY

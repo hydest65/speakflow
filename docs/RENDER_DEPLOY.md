@@ -26,20 +26,24 @@ render.yaml
 - `env: node`：按 Node Web Service 部署。
 - `buildCommand: "npm install"`：安装 Node 项目。
 - `startCommand: "npm start"`：启动 `server.js`。
-- `OPENAI_MODEL: gpt-5-mini`：默认 AI 模型。
-- `OPENAI_API_KEY`：需要在 Render Dashboard 里手动填写，不要提交到代码仓库。
+- `AI_PROVIDER: minimax`：默认使用 MiniMax。
+- `MINIMAX_MODEL: MiniMax-M2.7`：默认 MiniMax 文本模型。
+- `MINIMAX_API_KEY`：需要在 Render Dashboard 里手动填写，不要提交到代码仓库。
+- `OPENAI_MODEL` / `OPENAI_API_KEY`：保留为可选备用配置。
 - `pullRequestPreviewsEnabled: true`：后续接 GitHub PR 时可以生成预览。
 
-## OpenAI 环境变量
+## AI 环境变量
 
 在 Render Dashboard 中打开当前服务：
 
 1. 点击 Environment。
-2. 添加 `OPENAI_API_KEY`。
-3. Value 填你的 OpenAI API Key。
-4. 保存并重新部署。
+2. 添加或确认 `AI_PROVIDER=minimax`。
+3. 添加 `MINIMAX_API_KEY`。
+4. Value 填你的 MiniMax API Key。
+5. 确认 `MINIMAX_MODEL=MiniMax-M2.7`。
+6. 保存并重新部署。
 
-如果没有配置 `OPENAI_API_KEY`，AI 陪练页会自动回退到本地模拟回复，不会影响页面测试。
+如果没有配置 `MINIMAX_API_KEY`，AI 陪练页会自动回退到本地模拟回复，不会影响页面测试。
 
 本地或团队协作时可以参考：
 
@@ -57,7 +61,7 @@ render.yaml
 4. New + 选择 Web Service。
 5. 选择 GitHub 仓库。
 6. Render 读取 `render.yaml`。
-7. 在 Environment 里填写 `OPENAI_API_KEY`。
+7. 在 Environment 里填写 `MINIMAX_API_KEY`。
 8. 部署完成后，打开 Render 提供的外网 URL 测试。
 
 ## 测试重点
@@ -74,7 +78,7 @@ render.yaml
 1. 打开 Render 提供的外网 URL，确认首页能访问。
 2. 打开 `/api/health`，确认返回 `ok: true`。
 3. 检查 `/api/health` 里的 `aiConfigured`：
-   - `false`：说明还没有配置 `OPENAI_API_KEY`，AI 页会使用本地模拟。
+   - `false`：说明还没有配置当前 provider 的 API Key，AI 页会使用本地模拟。
    - `true`：说明服务端已读取到 Key。
 4. 打开 AI陪练页，输入一句英文并发送。
 5. 查看右侧提示：

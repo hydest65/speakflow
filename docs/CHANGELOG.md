@@ -12,6 +12,7 @@
 - Added a Node.js backend proxy for `/api/ai/chat`, with OpenAI Responses API support and local fallback in the frontend.
 - Added `.env.example`, `/api/health`, and clearer AI mode messaging for deployment checks.
 - Added `/api/ai/debug` for browser-based backend AI diagnostics.
+- Added MiniMax provider support through `AI_PROVIDER=minimax` and `MINIMAX_API_KEY`.
 
 ## 0.1.2 - 2026-04-28
 

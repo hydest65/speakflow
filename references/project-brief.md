@@ -37,7 +37,7 @@ SpeakFlow 是面向中国成人英语学习者的真实视频英语听说训练�
 - 学习页已放入一个临时 CC0 demo 视频，用于测试播放器流程，后续需要替换成真实英语训练视频。
 - Tips 已改成类似表达库的结构：左侧视频列表，右侧按单词、短语、地道表达拆解。
 - 项目已从纯静态站升级为 Node Web Service 结构，`server.js` 提供 `/api/ai/chat` 后端代理；前端会在后端不可用时回退本地模拟。
-- 部署前已加入 `.env.example` 和 `/api/health`，用于检查 Render 服务和 OpenAI Key 配置状态。
+- 部署前已加入 `.env.example` 和 `/api/health`，用于检查 Render 服务和当前 AI provider Key 配置状态。默认 provider 已切换为 MiniMax。
 
 ## 下一步建议
 
