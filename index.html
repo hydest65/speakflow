@@ -63,11 +63,22 @@
 
     <section class="content-column">
       <section class="panel today-pick" id="today-pick"></section>
+      <section class="panel library-toolbar" aria-label="视频库搜索">
+        <div>
+          <p class="eyebrow">Video Library</p>
+          <h1>选择今天要精听的真实片段</h1>
+          <p id="library-summary">按场景、难度和时长筛选，找到适合今天训练的内容。</p>
+        </div>
+        <label class="library-search">
+          <span>搜索视频</span>
+          <input id="library-search" type="search" placeholder="输入场景、来源或关键词">
+        </label>
+      </section>
       <section class="panel filter-panel" aria-label="视频筛选">
-        <label><span>主题</span><select data-filter="topic"><option value="all">全部</option><option value="daily">日常</option><option value="workplace">职场</option><option value="travel">旅行</option><option value="interview">采访</option></select></label>
+        <label><span>主题</span><select data-filter="topic"><option value="all">全部</option><option value="language">语言学习</option><option value="daily">日常</option><option value="workplace">职场</option><option value="travel">旅行</option><option value="interview">采访</option></select></label>
         <label><span>难度</span><select data-filter="difficulty"><option value="all">全部</option><option value="beginner">初级</option><option value="intermediate">中级</option><option value="advanced">高级</option></select></label>
         <label><span>时长</span><select data-filter="duration"><option value="all">全部</option><option value="short">1-3 分钟</option><option value="medium">3-8 分钟</option><option value="long">8 分钟以上</option></select></label>
-        <label><span>来源</span><select data-filter="sourceType"><option value="all">全部</option><option value="vlog">Vlog</option><option value="interview">采访</option><option value="workplace">职场会议</option><option value="ai-dialogue">AI 对话</option></select></label>
+        <label><span>来源</span><select data-filter="sourceType"><option value="all">全部</option><option value="ted">TED</option><option value="vlog">Vlog</option><option value="interview">采访</option><option value="workplace">职场会议</option><option value="ai-dialogue">AI 对话</option></select></label>
       </section>
       <section class="video-grid" id="video-grid" aria-live="polite"></section>
     </section>

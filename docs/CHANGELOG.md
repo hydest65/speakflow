@@ -1,5 +1,26 @@
 # SpeakFlow Changelog
 
+## 0.1.4 - 2026-04-28
+
+### Changed
+
+- Polished the video library with search, result summary, learning-state badges, and clearer video-card training metadata.
+- Added an external embed material mode with a TED example, official-source attribution, and learning-page iframe rendering.
+- Switched the homepage video library to 8 TED language-learning materials with official embed links and TED/source filters.
+- Updated homepage video previews to use static TED cover posters without play controls.
+- Made TED cover posters distinct with per-video speakers, focus phrases, colors, and visual marks.
+- Promoted TED speakers into a visible speaker label on each homepage cover poster.
+- Removed the TED wordmark from homepage cover posters and placed the speaker name in the top-left cover position.
+- Added portrait-style speaker avatars to TED homepage cover posters, ready to swap for licensed speaker photos later.
+- Reworked speaker avatars into distinct cartoon-style portraits to avoid relying on copyrighted speaker photos.
+- Added a first-pass word precision module on the learning page with sentence parsing, word chips, and per-word usage details.
+- Reworked the learning page into a scrollable sentence stream with a fixed word precision panel and narrower video column.
+- Rebuilt the learning page layout as a fixed-height three-column workbench to stabilize video, sentence stream, shadowing, and word precision areas.
+- Removed the word precision panel from the learning page and tightened sentence-stream typography for a cleaner shadowing layout.
+- Rebuilt the learning page again to match the reference layout: two-column video/subtitle workspace, hidden global nav, video intro card, subtitle toolbar, and floating auto-scroll control.
+- Added a local WebVTT subtitle pipeline for the learning page, with VTT parsing, subtitleUrl support, and fallback to built-in sentence data.
+- Added `text/vtt` static serving support for local subtitle files.
+
 ## 0.1.3 - 2026-04-28
 
 ### Added

@@ -97,3 +97,12 @@ type Sentence = {
 
 - 视频、收藏、录音、AI 评分、学习进度和支付 API。AI 后端代理已完成第一版。
 - 用户登录和会员权限。
+
+## 6. 0.1.4 技术状态补充
+
+- `videos` 数据当前通过 `tedLanguageVideos` 覆盖首页素材，用于展示 8 个 TED 语言学习视频。
+- 学习页支持 `subtitleUrl` 字段，并通过 `fetch()` 加载本地 `.vtt` 文件。
+- `parseVtt()` 会将 WebVTT cue 转换为 `{ start, end, english, chinese, note }` 字幕数据。
+- `hydrateSubtitles()` 会在学习页初始渲染后异步替换动态字幕栏；加载失败时回退到内置 `sentences`。
+- `server.js` 已增加 `.vtt` 的 `text/vtt; charset=utf-8` 静态资源类型。
+- 字幕管线仍为实验性实现。下一轮应先定义统一字幕数据模型，再决定手工录入、VTT/SRT 导入或后端解析。

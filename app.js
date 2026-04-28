@@ -26,12 +26,259 @@ const videos = [
       { english: "Could we revisit this after we check the numbers?", chinese: "我们核对数据之后，能不能再回来看这个问题？", note: "revisit this 适合表达稍后重新讨论。" }
     ]
   },
+  {
+    id: "ted-speaking-listen",
+    title: "TED 演讲：如何让别人愿意听你说话",
+    description: "TED 外部精选素材，用完整演讲训练开场、停顿、重音和观点表达。当前只嵌入官方播放器，不下载或剪辑视频。",
+    source: "TED",
+    sourceType: "interview",
+    topic: "interview",
+    topicLabel: "公开演讲",
+    difficulty: "advanced",
+    difficultyLabel: "高级",
+    durationMinutes: 10,
+    date: "2026/4/28",
+    thumb: "ted",
+    videoMode: "embed",
+    embedUrl: "https://embed.ted.com/talks/julian_treasure_how_to_speak_so_that_people_want_to_listen",
+    sourceUrl: "https://www.ted.com/talks/julian_treasure_how_to_speak_so_that_people_want_to_listen",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：当前仅用于体验验证。商业化或课程化使用 TED 内容前，需要确认 TED 授权规则。",
+    sentences: [
+      { english: "The human voice: It's the instrument we all play.", chinese: "人类的声音，是我们每个人都会演奏的乐器。", note: "The human voice 是演讲开场常见的主题句，用来快速建立讨论对象。" },
+      { english: "How can we speak powerfully to make change in the world?", chinese: "我们如何有力量地说话，从而改变世界？", note: "How can we... 是演讲中提出核心问题的自然结构。" },
+      { english: "There are a number of habits that we need to move away from.", chinese: "有一些习惯是我们需要远离的。", note: "move away from 可用于表达摆脱旧习惯或低效做法。" }
+    ]
+  },
   { id: "kitchen-vlog", title: "一眼心动的厨房", description: "生活 Vlog 片段，适合训练自然语速下的日常描述和空间表达。", source: "Maddie Borge", sourceType: "vlog", topic: "daily", topicLabel: "日常", difficulty: "intermediate", difficultyLabel: "中级", durationMinutes: 2, date: "2026/4/23", thumb: "kitchen" },
   { id: "dinner-ootd", title: "晚宴 OOTD", description: "短 Vlog 穿搭分享，适合练语速、连读和轻松自我描述。", source: "Michelle Choi", sourceType: "vlog", topic: "daily", topicLabel: "Vlog", difficulty: "beginner", difficultyLabel: "初级", durationMinutes: 1, date: "2026/4/22", thumb: "ootd" },
   { id: "interview-opinion", title: "采访中如何表达观点", description: "访谈片段，学习解释想法、补充原因和自然转折。", source: "Mel Robbins", sourceType: "interview", topic: "interview", topicLabel: "采访", difficulty: "intermediate", difficultyLabel: "中级", durationMinutes: 7, date: "2026/4/21", thumb: "interview" },
   { id: "coffee-before-work", title: "上班前的咖啡时间", description: "从买咖啡到进入工作状态，练习高频生活动词和寒暄表达。", source: "Alex Daily", sourceType: "vlog", topic: "workplace", topicLabel: "职场日常", difficulty: "beginner", difficultyLabel: "初级", durationMinutes: 4, date: "2026/4/19", thumb: "street" },
   { id: "hotel-checkin", title: "酒店入住真实对话", description: "覆盖入住、确认房型、询问早餐和请求帮助。", source: "Travel Now", sourceType: "ai-dialogue", topic: "travel", topicLabel: "旅行", difficulty: "beginner", difficultyLabel: "初级", durationMinutes: 3, date: "2026/4/17", thumb: "travel" }
 ];
+
+const tedLanguageVideos = [
+  {
+    id: "ted-learn-language",
+    title: "4 个学习新语言的理由",
+    speaker: "John McWhorter",
+    coverFocus: "Why Languages Matter",
+    portraitStyle: "scholar",
+    description: "John McWhorter 从文化、思维和生活体验出发，解释为什么即使有翻译技术，人仍然值得学习一门新语言。",
+    source: "TED",
+    sourceType: "ted",
+    topic: "language",
+    topicLabel: "语言学习",
+    difficulty: "intermediate",
+    difficultyLabel: "中级",
+    durationMinutes: 10,
+    date: "2016/2",
+    thumb: "ted-blue",
+    featured: true,
+    videoMode: "embed",
+    subtitleUrl: "subtitles/ted-learn-language.vtt",
+    embedUrl: "https://embed.ted.com/talks/john_mcwhorter_4_reasons_to_learn_a_new_language",
+    sourceUrl: "https://www.ted.com/talks/john_mcwhorter_4_reasons_to_learn_a_new_language",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：不下载、不剪辑 TED 视频，仅嵌入官方播放器。",
+    sentences: [
+      { english: "English is fast becoming the world's universal language.", chinese: "英语正在快速成为世界通用语言。", note: "universal language 可用于讨论英语、科技和跨文化沟通。" },
+      { english: "There are lots of reasons to learn another language.", chinese: "学习另一门语言有很多理由。", note: "There are lots of reasons to... 是演讲中展开观点的高频句型。" },
+      { english: "Languages channel your thoughts.", chinese: "语言会引导你的思维方式。", note: "channel 在这里表示引导、塑造。" }
+    ]
+  },
+  {
+    id: "ted-chinese-ease",
+    title: "轻松读懂中文的方式",
+    speaker: "ShaoLan",
+    coverFocus: "Visual Language",
+    portraitStyle: "designer",
+    description: "ShaoLan 用视觉化方式拆解汉字，适合练习解释概念、举例说明和教育类表达。",
+    source: "TED",
+    sourceType: "ted",
+    topic: "language",
+    topicLabel: "语言学习",
+    difficulty: "beginner",
+    difficultyLabel: "初级",
+    durationMinutes: 6,
+    date: "2013/2",
+    thumb: "ted-red",
+    videoMode: "embed",
+    embedUrl: "https://embed.ted.com/talks/shaolan_learn_to_read_chinese_with_ease",
+    sourceUrl: "https://www.ted.com/talks/shaolan_learn_to_read_chinese_with_ease",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：适合练习清晰解释和示例表达。",
+    sentences: [
+      { english: "Learning to speak Chinese is a hard task.", chinese: "学习说中文是一件困难的事。", note: "a hard task 是描述学习挑战的简洁表达。" },
+      { english: "Let me show you how it works.", chinese: "让我向你展示它是如何运作的。", note: "show you how it works 适合讲解流程或方法。" },
+      { english: "You can build more complex concepts from simple forms.", chinese: "你可以从简单形式构建更复杂的概念。", note: "build from... to... 适合解释学习路径。" }
+    ]
+  },
+  {
+    id: "ted-reading-world",
+    title: "一年读遍世界各国的一本书",
+    speaker: "Ann Morgan",
+    coverFocus: "Read The World",
+    portraitStyle: "reader",
+    description: "Ann Morgan 分享跨文化阅读计划，适合训练讲故事、描述目标和表达文化视角。",
+    source: "TED",
+    sourceType: "ted",
+    topic: "language",
+    topicLabel: "阅读表达",
+    difficulty: "intermediate",
+    difficultyLabel: "中级",
+    durationMinutes: 12,
+    date: "2015/9",
+    thumb: "ted-books",
+    videoMode: "embed",
+    embedUrl: "https://embed.ted.com/talks/ann_morgan_my_year_reading_a_book_from_every_country_in_the_world",
+    sourceUrl: "https://www.ted.com/talks/ann_morgan_my_year_reading_a_book_from_every_country_in_the_world",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：适合练习阅读、文化和个人挑战相关表达。",
+    sentences: [
+      { english: "I considered myself a fairly well-read person.", chinese: "我曾认为自己算是一个读书不少的人。", note: "consider myself... 适合自我介绍和观点铺垫。" },
+      { english: "I had a massive blind spot on my bookshelf.", chinese: "我的书架上存在一个巨大的盲区。", note: "blind spot 可用于表达认知盲区。" },
+      { english: "I decided to read a book from every country.", chinese: "我决定每个国家读一本书。", note: "decided to... 是讲述行动计划的基础结构。" }
+    ]
+  },
+  {
+    id: "ted-sign-language",
+    title: "手语中迷人的音乐性",
+    speaker: "Christine Sun Kim",
+    coverFocus: "Sign & Sound",
+    portraitStyle: "artist",
+    description: "Christine Sun Kim 讨论声音、手语和表达方式，适合训练抽象概念、感官描述和文化理解。",
+    source: "TED",
+    sourceType: "ted",
+    topic: "language",
+    topicLabel: "表达方式",
+    difficulty: "advanced",
+    difficultyLabel: "高级",
+    durationMinutes: 15,
+    date: "2015",
+    thumb: "ted-sign",
+    videoMode: "embed",
+    embedUrl: "https://embed.ted.com/talks/christine_sun_kim_the_enchanting_music_of_sign_language",
+    sourceUrl: "https://www.ted.com/talks/christine_sun_kim_the_enchanting_music_of_sign_language",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：适合练习关于声音、身体语言和表达边界的英文。",
+    sentences: [
+      { english: "Sound is like money, power, control.", chinese: "声音就像金钱、权力和控制。", note: "Sound is like... 用类比方式引出抽象观点。" },
+      { english: "Sign language has its own rhythm and music.", chinese: "手语有它自己的节奏和音乐性。", note: "has its own... 可用于强调独特性。" },
+      { english: "I want to reclaim ownership of sound.", chinese: "我想重新取回对声音的拥有权。", note: "reclaim ownership of... 是强有力的观点表达。" }
+    ]
+  },
+  {
+    id: "ted-dont-insist-english",
+    title: "不要只坚持英语",
+    speaker: "Patricia Ryan",
+    coverFocus: "English & Diversity",
+    portraitStyle: "teacher",
+    description: "Patricia Ryan 反思英语作为全球语言的影响，适合训练辩论、教育公平和语言政策表达。",
+    source: "TED",
+    sourceType: "ted",
+    topic: "language",
+    topicLabel: "英语思辨",
+    difficulty: "advanced",
+    difficultyLabel: "高级",
+    durationMinutes: 10,
+    date: "2010",
+    thumb: "ted-english",
+    videoMode: "embed",
+    embedUrl: "https://embed.ted.com/talks/patricia_ryan_don_t_insist_on_english",
+    sourceUrl: "https://www.ted.com/talks/patricia_ryan_don_t_insist_on_english",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：适合练习表达立场、提出反问和讨论英语学习的意义。",
+    sentences: [
+      { english: "English is an open door.", chinese: "英语是一扇打开的门。", note: "open door 可比喻机会和入口。" },
+      { english: "But are we losing something important?", chinese: "但我们是否正在失去一些重要的东西？", note: "Are we losing...? 适合提出反思性问题。" },
+      { english: "We need to celebrate diversity.", chinese: "我们需要赞美多样性。", note: "celebrate diversity 是教育和文化议题中的高频表达。" }
+    ]
+  },
+  {
+    id: "ted-language-money",
+    title: "语言会影响你的储蓄能力吗",
+    speaker: "Keith Chen",
+    coverFocus: "Language Shapes Time",
+    portraitStyle: "analyst",
+    description: "Keith Chen 从语言结构谈经济行为，适合训练数据解释、因果关系和研究发现表达。",
+    source: "TED",
+    sourceType: "ted",
+    topic: "language",
+    topicLabel: "语言与思维",
+    difficulty: "advanced",
+    difficultyLabel: "高级",
+    durationMinutes: 12,
+    date: "2012/6",
+    thumb: "ted-data",
+    videoMode: "embed",
+    embedUrl: "https://embed.ted.com/talks/keith_chen_could_your_language_affect_your_ability_to_save_money",
+    sourceUrl: "https://www.ted.com/talks/keith_chen_could_your_language_affect_your_ability_to_save_money",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：适合练习研究类、数据类和比较类英文表达。",
+    sentences: [
+      { english: "Languages differ in how they divide up time.", chinese: "不同语言划分时间的方式不同。", note: "differ in how... 适合描述差异。" },
+      { english: "This turns out to have surprising effects.", chinese: "结果证明这会产生令人意外的影响。", note: "turns out to... 常用于引出研究结果。" },
+      { english: "The future feels more distant.", chinese: "未来感觉更遥远。", note: "feels more distant 可用于抽象感受描述。" }
+    ]
+  },
+  {
+    id: "ted-dont-kill-language",
+    title: "不要杀死你的语言",
+    speaker: "Suzanne Talhouk",
+    coverFocus: "Identity & Mother Tongue",
+    portraitStyle: "speaker",
+    description: "Suzanne Talhouk 讨论母语、身份和文化表达，适合训练情感表达和价值观点。",
+    source: "TED",
+    sourceType: "ted",
+    topic: "language",
+    topicLabel: "文化表达",
+    difficulty: "intermediate",
+    difficultyLabel: "中级",
+    durationMinutes: 14,
+    date: "2012/12",
+    thumb: "ted-culture",
+    videoMode: "embed",
+    embedUrl: "https://embed.ted.com/talks/suzanne_talhouk_don_t_kill_your_language",
+    sourceUrl: "https://www.ted.com/talks/suzanne_talhouk_don_t_kill_your_language",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：该演讲为阿拉伯语演讲，可结合字幕训练跨语言理解。",
+    sentences: [
+      { english: "Language is not just a tool.", chinese: "语言不只是一个工具。", note: "not just... 用于强调更深层意义。" },
+      { english: "It carries our identity and memory.", chinese: "它承载着我们的身份和记忆。", note: "carry identity and memory 是文化讨论中的自然表达。" },
+      { english: "We should not be ashamed of our language.", chinese: "我们不应该为自己的语言感到羞耻。", note: "be ashamed of... 用于表达羞耻或自我接纳。" }
+    ]
+  },
+  {
+    id: "ted-simplify-spelling",
+    title: "我们应该简化拼写吗",
+    speaker: "Karina Galperin",
+    coverFocus: "Spelling Reform",
+    portraitStyle: "writer",
+    description: "Karina Galperin 讨论英语拼写规则和学习负担，适合训练提出问题、分析规则和表达建议。",
+    source: "TED",
+    sourceType: "ted",
+    topic: "language",
+    topicLabel: "拼写与规则",
+    difficulty: "intermediate",
+    difficultyLabel: "中级",
+    durationMinutes: 16,
+    date: "2015",
+    thumb: "ted-spelling",
+    videoMode: "embed",
+    embedUrl: "https://embed.ted.com/talks/karina_galperin_should_we_simplify_spelling",
+    sourceUrl: "https://www.ted.com/talks/karina_galperin_should_we_simplify_spelling",
+    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
+    demoNote: "外部素材模式：适合练习关于英语拼写、规则和学习效率的表达。",
+    sentences: [
+      { english: "Spelling can be surprisingly hard to master.", chinese: "拼写可能出人意料地难以掌握。", note: "surprisingly hard to master 可用于描述学习难点。" },
+      { english: "Language evolves over time.", chinese: "语言会随着时间演变。", note: "evolves over time 是语言变化主题的核心表达。" },
+      { english: "Maybe it is time to rethink the rules.", chinese: "也许是时候重新思考这些规则了。", note: "It is time to rethink... 适合提出改革建议。" }
+    ]
+  }
+];
+
+videos.splice(0, videos.length, ...tedLanguageVideos);
 
 const aiScenarios = [
   {
@@ -343,22 +590,99 @@ function getDurationBucket(video) {
   return "long";
 }
 
+function getVideoLearningState(video) {
+  const progress = getProgress();
+  if (progress.completedVideos.includes(video.id)) {
+    return { label: "已完成", className: "completed" };
+  }
+
+  const hasPracticed = Object.values(progress.practicedSentences)
+    .some((items) => items.some((item) => item.startsWith(`${video.id}:`)));
+  if (hasPracticed) {
+    return { label: "学习中", className: "active" };
+  }
+
+  return { label: "未开始", className: "new" };
+}
+
+function getLibrarySearchText() {
+  return document.querySelector("#library-search")?.value.trim().toLowerCase() || "";
+}
+
+function matchesSearch(video, searchText) {
+  if (!searchText) return true;
+  return [
+    video.title,
+    video.description,
+    video.source,
+    video.topicLabel,
+    video.difficultyLabel
+  ].some((value) => value.toLowerCase().includes(searchText));
+}
+
+function updateLibrarySummary(filteredVideos) {
+  const summary = document.querySelector("#library-summary");
+  if (!summary) return;
+
+  const favorites = filteredVideos.filter((video) => isFavorite(video.id)).length;
+  const completed = filteredVideos.filter((video) => getProgress().completedVideos.includes(video.id)).length;
+  summary.textContent = `当前显示 ${filteredVideos.length} 个片段；${favorites} 个已收藏，${completed} 个已完成。`;
+}
+
+function getSpeakerInitials(name = "") {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase() || "SF";
+}
+
+function renderVideoPreview(video, extraClass = "") {
+  const className = `thumb ${extraClass} ${video.thumb} ${video.videoMode === "embed" ? "has-media" : ""}`.trim();
+  const duration = `<span>${video.durationMinutes}分钟</span>`;
+
+  if (video.videoMode === "embed" && video.embedUrl) {
+    return `
+      <div class="${className}" aria-label="${video.title} 视频封面">
+        <div class="ted-cover-poster">
+          <div class="speaker-portrait ${video.portraitStyle || "speaker"}" aria-hidden="true"><i>${getSpeakerInitials(video.speaker)}</i></div>
+          <strong>${video.speaker || "Speaker"}</strong>
+          <small>${video.topicLabel}</small>
+          <b>${video.coverFocus || video.title}</b>
+          <em>${video.difficultyLabel} · ${video.durationMinutes} 分钟</em>
+        </div>
+        ${duration}
+      </div>
+    `;
+  }
+
+  return `<div class="${className}">${duration}</div>`;
+}
+
 function createVideoCard(video, options = {}) {
   const favorite = isFavorite(video.id);
   const status = favorite ? "已收藏" : "收藏";
   const favoriteClass = favorite ? "favorite-button active" : "favorite-button";
+  const learningState = getVideoLearningState(video);
+  const sentenceCount = (video.sentences || videos[0].sentences || []).length;
 
   return `
     <article class="video-card" data-video-id="${video.id}">
-      <div class="thumb ${video.thumb}"><span>${video.durationMinutes}分钟</span></div>
+      ${renderVideoPreview(video)}
       <div class="card-body">
+        <div class="video-meta-row">
+          <span class="learning-state ${learningState.className}">${learningState.label}</span>
+          <span>${sentenceCount} 句精听</span>
+        </div>
         <div class="card-title-row">
           <h2>${video.title}</h2>
           <button class="${favoriteClass}" type="button" data-favorite="${video.id}" aria-label="${status}${video.title}">${status}</button>
         </div>
         <p>${options.context || video.description}</p>
-        <div class="tag-row"><span>${video.source}</span><span>${video.topicLabel}</span></div>
-        <div class="card-foot"><strong>${video.difficultyLabel}</strong><a href="learn.html?video=${video.id}">继续学习</a></div>
+        <div class="tag-row"><span>${video.source}</span><span>${video.topicLabel}</span><span>${video.difficultyLabel}</span></div>
+        <div class="card-foot"><strong>${video.durationMinutes} 分钟</strong><a href="learn.html?video=${video.id}">进入学习</a></div>
       </div>
     </article>
   `;
@@ -376,7 +700,7 @@ function renderTodayPick() {
   if (!container) return;
 
   container.innerHTML = `
-    <div class="today-cover thumb ${pick.thumb}"><span>${pick.durationMinutes}分钟</span></div>
+    ${renderVideoPreview(pick, "today-cover")}
     <div class="today-copy">
       <p class="eyebrow">Today's Pick</p>
       <h2>${pick.title}</h2>
@@ -414,14 +738,18 @@ function renderLibrary() {
   const grid = document.querySelector("#video-grid");
   if (!grid) return;
 
-  const filteredVideos = videos.filter((video) => matchesFilters(video, getFilters()));
+  const searchText = getLibrarySearchText();
+  const filteredVideos = videos.filter((video) => matchesFilters(video, getFilters()) && matchesSearch(video, searchText));
+  updateLibrarySummary(filteredVideos);
   grid.innerHTML = filteredVideos.length
     ? filteredVideos.map((video) => createVideoCard(video)).join("")
-    : `<article class="video-card empty-state"><div class="card-body"><h2>没有符合条件的视频</h2><p>换一个筛选条件，继续找今天适合训练的片段。</p></div></article>`;
+    : `<article class="video-card empty-state"><div class="card-body"><h2>没有找到合适的视频</h2><p>换一个关键词或筛选条件，继续找今天适合训练的片段。</p></div></article>`;
 
   document.querySelectorAll("[data-filter]").forEach((select) => {
-    select.addEventListener("change", renderLibrary);
+    select.onchange = renderLibrary;
   });
+  const searchInput = document.querySelector("#library-search");
+  if (searchInput) searchInput.oninput = renderLibrary;
   bindFavoriteButtons();
 }
 
@@ -436,6 +764,234 @@ function renderFavorites() {
   bindFavoriteButtons();
 }
 
+function renderVideoPlayer(video) {
+  if (video.videoMode === "embed" && video.embedUrl) {
+    return `
+      <iframe
+        class="player media-player embed-player ${video.thumb}"
+        src="${video.embedUrl}"
+        title="${video.title}"
+        allow="fullscreen; picture-in-picture"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    `;
+  }
+
+  if (video.videoUrl) {
+    return `
+      <video class="player media-player ${video.thumb}" controls preload="metadata" poster="">
+        <source src="${video.videoUrl}" type="${video.videoType || "video/mp4"}">
+        当前浏览器无法播放该 demo 视频。
+      </video>
+    `;
+  }
+
+  return `<div class="player ${video.thumb}"></div>`;
+}
+
+function renderSourceAttribution(video) {
+  if (!video.attribution && !video.sourceUrl) return "";
+  return `
+    <p class="source-attribution">
+      ${video.attribution || "外部素材"}
+      ${video.sourceUrl ? `<a href="${video.sourceUrl}" target="_blank" rel="noopener noreferrer">查看原始来源</a>` : ""}
+    </p>
+  `;
+}
+
+const wordGlossary = {
+  english: { cn: "英语；英文", type: "noun", usage: "谈论语言学习、国际沟通或英语环境时的核心词。" },
+  language: { cn: "语言", type: "noun", usage: "可指某一种语言，也可泛指表达系统。" },
+  languages: { cn: "语言；多种语言", type: "noun", usage: "复数形式，常用于比较不同语言或讨论语言多样性。" },
+  universal: { cn: "通用的；普遍的", type: "adj.", usage: "强调适用于很多地区、人群或场景。" },
+  reasons: { cn: "理由；原因", type: "noun", usage: "用于列举观点，常见结构是 reasons to do something。" },
+  learn: { cn: "学习", type: "verb", usage: "后面可直接接语言、技能或方法。" },
+  another: { cn: "另一；又一", type: "determiner", usage: "强调在已有对象之外再增加一个。" },
+  channel: { cn: "引导；塑造", type: "verb", usage: "本句中不是频道，而是表达语言会影响思维路径。" },
+  thoughts: { cn: "想法；思维", type: "noun", usage: "常用于讨论观点、认知和内心活动。" },
+  speak: { cn: "说；讲话", type: "verb", usage: "可用于语言能力，也可用于公开表达。" },
+  chinese: { cn: "中文；中国的", type: "noun/adj.", usage: "根据语境可指语言，也可作形容词。" },
+  task: { cn: "任务；工作", type: "noun", usage: "a hard task 表示一件有挑战的事。" },
+  show: { cn: "展示；说明", type: "verb", usage: "Let me show you... 是讲解型表达的自然开头。" },
+  works: { cn: "运作；起作用", type: "verb", usage: "how it works 用来解释机制或方法。" },
+  build: { cn: "构建；建立", type: "verb", usage: "可用于抽象概念、能力和系统。" },
+  complex: { cn: "复杂的", type: "adj.", usage: "用来描述概念、问题或结构。" },
+  concepts: { cn: "概念", type: "noun", usage: "教育、解释和思维类话题常用词。" },
+  considered: { cn: "认为；把……看作", type: "verb", usage: "consider myself... 适合表达自我认知。" },
+  fairly: { cn: "相当；还算", type: "adv.", usage: "用于缓和语气，让判断不显得绝对。" },
+  read: { cn: "阅读；读过", type: "verb/adj.", usage: "well-read 表示博览群书的。" },
+  massive: { cn: "巨大的", type: "adj.", usage: "比 big 更正式、更有强调感。" },
+  blind: { cn: "盲的；看不见的", type: "adj.", usage: "blind spot 表示认知盲区。" },
+  spot: { cn: "点；位置", type: "noun", usage: "blind spot 是固定搭配。" },
+  bookshelf: { cn: "书架", type: "noun", usage: "这里用书架比喻阅读范围。" },
+  decided: { cn: "决定了", type: "verb", usage: "decided to... 用于讲述行动计划。" },
+  country: { cn: "国家", type: "noun", usage: "every country 表示覆盖所有国家。" },
+  sound: { cn: "声音", type: "noun", usage: "可指物理声音，也可延伸到表达权力。" },
+  money: { cn: "金钱", type: "noun", usage: "用于类比资源、权力或控制。" },
+  power: { cn: "权力；力量", type: "noun", usage: "抽象议题中常与 control 搭配。" },
+  control: { cn: "控制", type: "noun/verb", usage: "表示支配、影响或管理能力。" },
+  sign: { cn: "手势；符号", type: "noun", usage: "sign language 指手语。" },
+  rhythm: { cn: "节奏", type: "noun", usage: "常用于声音、语言、动作和音乐。" },
+  music: { cn: "音乐；音乐性", type: "noun", usage: "这里强调手语也有节奏美感。" },
+  reclaim: { cn: "重新取回", type: "verb", usage: "常用于权利、身份或话语权。" },
+  ownership: { cn: "拥有权；归属感", type: "noun", usage: "reclaim ownership of... 是强观点表达。" },
+  door: { cn: "门；机会", type: "noun", usage: "open door 可比喻机会入口。" },
+  losing: { cn: "正在失去", type: "verb", usage: "Are we losing...? 用于反思性提问。" },
+  important: { cn: "重要的", type: "adj.", usage: "用于强调价值或优先级。" },
+  celebrate: { cn: "赞美；庆祝", type: "verb", usage: "celebrate diversity 表示认可多样性。" },
+  diversity: { cn: "多样性", type: "noun", usage: "文化和教育话题中的高频词。" },
+  differ: { cn: "不同；有差异", type: "verb", usage: "differ in how... 用于描述机制差异。" },
+  divide: { cn: "划分；分割", type: "verb", usage: "divide up time 表示划分时间。" },
+  time: { cn: "时间", type: "noun", usage: "语言与思维话题中的核心抽象词。" },
+  surprising: { cn: "令人意外的", type: "adj.", usage: "用于引出超出预期的结果。" },
+  effects: { cn: "影响；效果", type: "noun", usage: "研究类表达常用词。" },
+  future: { cn: "未来", type: "noun", usage: "可讨论计划、时间感或可能性。" },
+  distant: { cn: "遥远的", type: "adj.", usage: "可指空间距离，也可指心理距离。" },
+  tool: { cn: "工具", type: "noun", usage: "not just a tool 用来强调更深层价值。" },
+  carries: { cn: "承载；携带", type: "verb", usage: "可用于身份、记忆、意义等抽象对象。" },
+  identity: { cn: "身份；认同", type: "noun", usage: "文化和语言议题中的核心词。" },
+  memory: { cn: "记忆", type: "noun", usage: "可指个人记忆或集体记忆。" },
+  ashamed: { cn: "羞愧的", type: "adj.", usage: "be ashamed of... 表示为某事羞愧。" },
+  spelling: { cn: "拼写", type: "noun", usage: "讨论英语规则和学习负担时使用。" },
+  surprisingly: { cn: "出人意料地", type: "adv.", usage: "用来强调结果或难度超出预期。" },
+  hard: { cn: "困难的", type: "adj.", usage: "hard to master 表示难以掌握。" },
+  master: { cn: "掌握", type: "verb", usage: "常用于技能、语言、方法的熟练掌握。" },
+  evolves: { cn: "演变；进化", type: "verb", usage: "language evolves over time 是讨论语言变化的自然表达。" },
+  rethink: { cn: "重新思考", type: "verb", usage: "rethink the rules 用于提出改革或反思。" },
+  rules: { cn: "规则", type: "noun", usage: "可指语法、拼写、制度或方法规则。" }
+};
+
+function normalizeWord(word) {
+  return word.toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g, "");
+}
+
+function buildWordItems(sentence) {
+  if (sentence.words?.length) return sentence.words;
+
+  return sentence.english
+    .split(/\s+/)
+    .map((raw) => {
+      const key = normalizeWord(raw);
+      const fallback = { cn: "结合本句理解", type: "word", usage: "后续可补充更精确的逐词解析。" };
+      return {
+        text: raw.replace(/[.,?!:;]+$/g, ""),
+        ...(wordGlossary[key] || fallback),
+        key
+      };
+    })
+    .filter((item) => item.key);
+}
+
+function renderWordPrecision(sentences, sentenceIndex = 0, wordIndex = 0) {
+  const sentence = sentences[sentenceIndex] || sentences[0];
+  const words = buildWordItems(sentence);
+  const activeWord = words[wordIndex] || words[0];
+
+  return `
+    <section class="word-precision" id="word-precision">
+      <div class="word-precision-head">
+        <p class="eyebrow">Word Precision</p>
+        <h2>逐词精度</h2>
+      </div>
+      <p class="word-sentence">${sentence.english}</p>
+      <div class="word-grid">
+        ${words.map((word, index) => `
+          <button class="word-chip ${index === wordIndex ? "active" : ""}" type="button" data-word-index="${index}">
+            <strong>${word.text}</strong>
+            <span>${word.cn}</span>
+          </button>
+        `).join("")}
+      </div>
+      <article class="word-detail" id="word-detail">
+        <span>${activeWord.type}</span>
+        <h3>${activeWord.text}</h3>
+        <strong>${activeWord.cn}</strong>
+        <p>${activeWord.usage}</p>
+      </article>
+    </section>
+  `;
+}
+
+function bindWordPrecision(sentences, sentenceIndex = 0) {
+  document.querySelectorAll("[data-word-index]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const wordIndex = Number(button.dataset.wordIndex);
+      document.querySelector("#word-precision").outerHTML = renderWordPrecision(sentences, sentenceIndex, wordIndex);
+      bindWordPrecision(sentences, sentenceIndex);
+    });
+  });
+}
+
+function parseVttTimestamp(timestamp) {
+  const parts = timestamp.trim().split(":");
+  const secondsPart = parts.pop() || "0";
+  const seconds = Number(secondsPart.replace(",", "."));
+  const minutes = Number(parts.pop() || 0);
+  const hours = Number(parts.pop() || 0);
+  return Math.round(hours * 3600 + minutes * 60 + seconds);
+}
+
+function formatSubtitleTime(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+function parseVtt(text) {
+  return text
+    .replace(/\r/g, "")
+    .split(/\n\n+/)
+    .map((block) => block.split("\n").filter(Boolean))
+    .map((lines) => {
+      const timingIndex = lines.findIndex((line) => line.includes("-->"));
+      if (timingIndex === -1) return null;
+
+      const [startRaw, endRaw] = lines[timingIndex].split("-->").map((part) => part.trim().split(/\s+/)[0]);
+      const cueLines = lines.slice(timingIndex + 1);
+      const english = cueLines.find((line) => line.startsWith("EN:"))?.replace(/^EN:\s*/, "") || cueLines[0] || "";
+      const chinese = cueLines.find((line) => line.startsWith("ZH:"))?.replace(/^ZH:\s*/, "") || cueLines[1] || "";
+      if (!english) return null;
+
+      return {
+        start: formatSubtitleTime(parseVttTimestamp(startRaw)),
+        end: formatSubtitleTime(parseVttTimestamp(endRaw)),
+        english,
+        chinese,
+        note: "来自本地 VTT 字幕文件，可继续补充重点表达。"
+      };
+    })
+    .filter(Boolean);
+}
+
+async function loadSubtitles(video) {
+  if (!video.subtitleUrl) return video.sentences || videos[0].sentences;
+
+  try {
+    const response = await fetch(video.subtitleUrl);
+    if (!response.ok) throw new Error("subtitle not found");
+    const subtitles = parseVtt(await response.text());
+    return subtitles.length ? subtitles : (video.sentences || videos[0].sentences);
+  } catch {
+    return video.sentences || videos[0].sentences;
+  }
+}
+
+function getSentenceTime(sentence, index) {
+  return sentence.start || `0:${String(index * 7 + 1).padStart(2, "0")}`;
+}
+
+function renderSubtitleList(sentences) {
+  return sentences.map((sentence, index) => `
+    <button class="sentence ${index === 0 ? "active" : ""}" type="button" data-sentence="${index}">
+      <time>${getSentenceTime(sentence, index)}</time>
+      <strong>${sentence.english}</strong>
+      <span>${sentence.chinese}</span>
+      <em class="sentence-star">☆</em>
+    </button>
+  `).join("");
+}
+
 function renderLearnPage() {
   const video = getCurrentVideo();
   const sentences = video.sentences || videos[0].sentences;
@@ -445,30 +1001,37 @@ function renderLearnPage() {
   if (!videoPanel || !sentencePanel || !feedbackPanel) return;
 
   videoPanel.innerHTML = `
-    ${video.videoUrl ? `
-      <video class="player media-player ${video.thumb}" controls preload="metadata" poster="">
-        <source src="${video.videoUrl}" type="${video.videoType || "video/mp4"}">
-        当前浏览器无法播放该 demo 视频。
-      </video>
-    ` : `<div class="player ${video.thumb}"></div>`}
-    <h1>${video.title}</h1>
-    <p>${video.description}</p>
-    ${video.demoNote ? `<p class="demo-note">${video.demoNote}</p>` : ""}
-    <div class="tag-row"><span>${video.topicLabel}</span><span>${video.difficultyLabel}</span><span>${video.durationMinutes}分钟</span></div>
+    <div class="learn-video-card">
+      <div class="learn-video-head">
+        <a class="learn-back" href="index.html" aria-label="返回视频库">‹</a>
+        <h1>${video.title}</h1>
+        <div class="learn-meta"><span>时长: ${video.durationMinutes}:00</span><span>难度: ${video.difficultyLabel}</span></div>
+      </div>
+      <div class="learn-player-frame">${renderVideoPlayer(video)}</div>
+    </div>
+    <section class="video-summary-card">
+      <h2><span>▰</span>视频简介</h2>
+      <p>${video.description}</p>
+      ${video.demoNote ? `<p class="demo-note">${video.demoNote}</p>` : ""}
+      ${renderSourceAttribution(video)}
+    </section>
   `;
 
   sentencePanel.innerHTML = `
-    <p class="eyebrow">Sentence Practice</p>
-    <h1>逐句精听</h1>
-    <div class="sentence-list">
-      ${sentences.map((sentence, index) => `
-        <button class="sentence ${index === 0 ? "active" : ""}" type="button" data-sentence="${index}">
-          <strong>${sentence.english}</strong>
-          <span>${sentence.chinese}</span>
-          <em class="sentence-tools"><i>播放</i><i>循环</i><i>收藏视频</i></em>
-        </button>
-      `).join("")}
+    <div class="subtitle-head">
+      <h1>动态字幕</h1>
+      <div class="subtitle-tools" aria-label="字幕工具">
+        <button type="button" title="翻译">文</button>
+        <button type="button" title="循环">↻</button>
+        <button type="button" title="筛选">≡</button>
+        <button type="button" title="生词本">▯</button>
+        <button type="button" title="导出">⇲</button>
+      </div>
     </div>
+    <div class="sentence-scroll" id="sentence-scroll">
+      ${renderSubtitleList(sentences)}
+    </div>
+    <button class="auto-scroll-button" type="button">▣ 自动</button>
   `;
 
   feedbackPanel.innerHTML = `
@@ -502,6 +1065,31 @@ function renderLearnPage() {
 
   bindFavoriteButtons();
   bindLearningActions(video);
+  hydrateSubtitles(video);
+}
+
+async function hydrateSubtitles(video) {
+  const loadedSentences = await loadSubtitles(video);
+  const scroll = document.querySelector("#sentence-scroll");
+  if (!scroll) return;
+
+  scroll.innerHTML = renderSubtitleList(loadedSentences);
+  const currentSentence = document.querySelector("#current-sentence");
+  const sentenceNote = document.querySelector("#sentence-note");
+  if (currentSentence) currentSentence.textContent = `当前句：${loadedSentences[0].english}`;
+  if (sentenceNote) sentenceNote.textContent = loadedSentences[0].note || "";
+
+  document.querySelectorAll(".sentence").forEach((sentenceButton) => {
+    sentenceButton.addEventListener("click", () => {
+      const index = Number(sentenceButton.dataset.sentence);
+      document.querySelectorAll(".sentence").forEach((item) => item.classList.remove("active"));
+      sentenceButton.classList.add("active");
+      document.querySelector("#current-sentence").textContent = `当前句：${loadedSentences[index].english}`;
+      document.querySelector("#sentence-note").textContent = loadedSentences[index].note || "";
+      recordSentencePractice(video.id, index);
+      updateLearnProgressView(video.id);
+    });
+  });
 }
 
 function getLearnProgressText(videoId) {

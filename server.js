@@ -16,7 +16,8 @@ const contentTypes = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
-  ".svg": "image/svg+xml"
+  ".svg": "image/svg+xml",
+  ".vtt": "text/vtt; charset=utf-8"
 };
 
 function sendJson(response, statusCode, payload) {

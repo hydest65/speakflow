@@ -3,12 +3,12 @@
 ## 当前版本
 
 ```text
-0.1.3
+0.1.4
 ```
 
 版本日期：2026-04-28
 
-版本性质：可部署 AI 学习原型版，重点完成学习闭环、表达库工作台、Node 后端代理与 MiniMax provider 切换。
+版本性质：TED 素材首页与学习页体验打磨版。重点保留首页 8 个 TED 语言学习素材、视频封面工作台体验，并将学习页重排为参考截图方向的“视频 + 动态字幕”双栏布局。
 
 ## 仓库状态
 
@@ -30,26 +30,34 @@ Render 配置：
 render.yaml
 ```
 
-## 本版已完成
+## 本版完成
 
-- 今日任务、跟读、AI 评分、打卡和会员页学习记录已用 `localStorage` 串成轻量闭环。
-- AI陪练页支持场景切换、英文输入、本地模拟追问、评分反馈，并把陪练轮次写入学习记录。
-- 跟读页加入临时 CC0 demo 视频，用于验证播放器和学习流程。
-- Tips 从学习建议卡片升级为“视频列表 + 单词 / 短语 / 地道表达”的表达库工作台。
-- 项目从纯静态站升级为 Node Web Service：`server.js` 提供静态文件、`/api/health`、`/api/ai/chat` 和 `/api/ai/debug`。
-- AI 后端支持 provider 切换：默认 `AI_PROVIDER=minimax`，读取 `MINIMAX_API_KEY` 调用 MiniMax；保留 OpenAI 备用配置。
-- Render 部署说明、技术方案、视觉规范和项目 brief 已同步当前实现。
-- 当前线上排查结论：Render 服务和后端路由可用；MiniMax 返回 `invalid api key (2049)` 时，需要在 Render 中替换有效 MiniMax API Key。
+- 首页视频库保留为 8 个 TED 语言学习相关素材。
+- 首页视频卡片改为一行 4 个视频预览窗口。
+- TED 视频封面从播放器预览改为静态封面，去掉播放三角。
+- TED 封面显示讲演人、主题词、不同颜色和卡通式讲演人头像，避免依赖真实人物照片版权。
+- 学习页多次重排后，当前方向改为参考截图的双栏工作台：左侧视频和简介，右侧动态字幕。
+- 学习页隐藏全局顶部导航，改用视频卡内部返回入口。
+- 动态字幕区增加工具栏、字幕列表和浮动“自动”按钮。
+- AI API 暂停继续调试，保留本地模拟和后端 provider 结构。
+- 增加本地 WebVTT 字幕加载和解析的实验性管线：`subtitleUrl`、`parseVtt()`、`hydrateSubtitles()`、`subtitles/ted-learn-language.vtt`。
+- 服务端增加 `.vtt` 的 `text/vtt; charset=utf-8` 静态类型支持。
+
+## 已知问题
+
+- 字幕解析和字幕来源策略尚未定稿。当前 VTT 文件只用于验证动态字幕栏体验，下一轮准备推倒重做字幕数据规范。
+- TED 内容用于原型验证时应继续使用官方嵌入链接和来源说明；正式商业化前需要确认 TED 内容和字幕授权。
+- 真实 AI API 暂停部署；MiniMax Key 问题不在本版继续处理。
+- 本地服务如果是旧进程，`.vtt` 的 Content-Type 可能仍显示为 `application/octet-stream`；重启服务后会应用新的 `text/vtt` 配置。
 
 ## 收尾检查建议
 
-1. 打开首页测试视频筛选、收藏和导航。
-2. 打开 `learn.html?video=meeting-follow-up`，确认 demo 视频可加载，句子点击和跟读/打卡记录可更新。
-3. 打开 Tips，确认左侧视频列表、表达类型 tab、筛选 chip 和隐藏中文可用。
-4. 打开 AI陪练页，确认本地模拟可用。
-5. 打开 `/api/health`，确认返回 `ok: true`、`provider: minimax`，并检查 `aiConfigured`。
-6. 打开 `/api/ai/debug`，用固定句测试后端 provider；如果返回 `invalid api key (2049)`，替换 Render 中的 `MINIMAX_API_KEY`。
-7. 用 GitHub Desktop 提交并推送，再在 Render 部署最新 commit。
+1. 打开首页，确认 8 个 TED 视频卡一行 4 个、封面无播放三角、显示讲演人和卡通头像。
+2. 打开 `learn.html?video=ted-learn-language`，确认学习页是左视频、右动态字幕双栏布局。
+3. 确认动态字幕列表可以滚动，且页面不再显示逐词精读面板。
+4. 打开 `subtitles/ted-learn-language.vtt`，确认本地字幕文件可访问。
+5. 打开 `/api/health`，确认服务仍返回 `ok: true`。
+6. 用 GitHub Desktop 提交并推送。
 
 ## GitHub Desktop 操作
 
@@ -57,6 +65,11 @@ render.yaml
 
 1. 确认当前仓库是 `speakflow`。
 2. 查看左侧 Changes。
-3. Summary 填写：`Release v0.1.3 AI learning prototype`
+3. Summary 填写：
+
+```text
+Release v0.1.4 TED learning layout prototype
+```
+
 4. 点击 `Commit to main`。
 5. 点击 `Push origin`。
