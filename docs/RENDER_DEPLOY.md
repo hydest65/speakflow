@@ -11,7 +11,7 @@ SpeakFlow 当前已升级为 Node Web Service：
 - Node.js `server.js`
 - `/api/ai/chat` AI 后端代理
 
-这样可以把 OpenAI API Key 放在服务端环境变量中，避免暴露在浏览器代码里。
+这样可以把 MiniMax / OpenAI API Key 放在服务端环境变量中，避免暴露在浏览器代码里。
 
 ## Render 配置
 
@@ -82,6 +82,6 @@ render.yaml
    - `true`：说明服务端已读取到 Key。
 4. 打开 AI陪练页，输入一句英文并发送。
 5. 查看右侧提示：
-   - 显示“当前使用真实 AI”：说明 OpenAI 接通。
-   - 显示“当前使用本地模拟”：说明后端不可用、Key 未配置，或 OpenAI 请求失败。
+   - 显示“当前使用真实 AI”：说明当前 provider 接通。
+   - 显示“当前使用本地模拟”：说明后端不可用、Key 未配置，或当前 AI provider 请求失败。
 6. 如果 AI 页没有触发日志，打开 `/api/ai/debug`。这个地址会用固定测试句直接调用后端 AI 代理，方便判断问题在前端还是后端。

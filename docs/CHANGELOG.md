@@ -1,6 +1,6 @@
 # SpeakFlow Changelog
 
-## Unreleased
+## 0.1.3 - 2026-04-28
 
 ### Added
 
@@ -13,6 +13,10 @@
 - Added `.env.example`, `/api/health`, and clearer AI mode messaging for deployment checks.
 - Added `/api/ai/debug` for browser-based backend AI diagnostics.
 - Added MiniMax provider support through `AI_PROVIDER=minimax` and `MINIMAX_API_KEY`.
+
+### Notes
+
+- The Render service can now read provider configuration and route AI requests through the backend proxy. Live MiniMax testing still depends on a valid MiniMax API key; an `invalid api key (2049)` response means the key must be regenerated or replaced in Render.
 
 ## 0.1.2 - 2026-04-28
 

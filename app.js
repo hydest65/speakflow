@@ -718,7 +718,7 @@ function renderAiFeedback(scenario, latestText = "", scoredResult = null) {
   const today = getTodayProgress();
   const modeText = result.source === "api"
     ? "当前使用真实 AI"
-    : "当前使用本地模拟；部署后配置 OPENAI_API_KEY 可启用真实 AI";
+    : "当前使用本地模拟；部署后配置 MiniMax API Key 可启用真实 AI";
 
   container.innerHTML = `
     <p class="eyebrow">Session Goal</p>
