@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+暂无。
+
+## 0.2.1 - 2026-04-29
+
 ### Changed
 
 - Reorganized the product entry so `index.html` is now a quiet, low-pressure learning homepage instead of the full video library.
@@ -9,6 +13,12 @@
 - Selected the Option B homepage layout: calm split entrance with a primary start path on the left and learner progress/achievement information on the right.
 - Updated navigation across the main branch pages to separate 首页, 视频库, 收藏夹, 学习卡片, AI 陪练, and 学员信息/会员.
 - Kept the homepage text-only: no video player, iframe, video grid, filters, or video preview window on the first page.
+- Removed third-party talk-platform prototype content, source filters, cover styles, and the old local subtitle sample from the website.
+- Added an external-link import template for future local testing with linked videos, subtitles, and close-reading notes.
+- Added the first Notion-linked external test video to the local video library with placeholder subtitles and notes.
+- Cleared the old local demo video library entries so the library starts over with only the Notion-linked test video.
+- Switched the first test video playback from the expiring Notion signed URL to the local `Video/RPReplay_Final1713515371.mov` file for reliable local testing.
+- Switched the first test video playback from MOV to the browser-friendly `Video/RPReplay_Final1713515371.mp4` file.
 
 ## 0.2.0 - 2026-04-29
 
@@ -45,13 +55,13 @@
 ### Changed
 
 - Polished the video library with search, result summary, learning-state badges, and clearer video-card training metadata.
-- Added an external embed material mode with a TED example, official-source attribution, and learning-page iframe rendering.
-- Switched the homepage video library to 8 TED language-learning materials with official embed links and TED/source filters.
-- Updated homepage video previews to use static TED cover posters without play controls.
-- Made TED cover posters distinct with per-video speakers, focus phrases, colors, and visual marks.
-- Promoted TED speakers into a visible speaker label on each homepage cover poster.
-- Removed the TED wordmark from homepage cover posters and placed the speaker name in the top-left cover position.
-- Added portrait-style speaker avatars to TED homepage cover posters, ready to swap for licensed speaker photos later.
+- Added an external embed material mode with official-source attribution and learning-page iframe rendering.
+- Tested the video library with external language-learning materials and source filters.
+- Updated homepage video previews to use static cover posters without play controls.
+- Made cover posters distinct with per-video source labels, focus phrases, colors, and visual marks.
+- Promoted source labels into a visible label on each homepage cover poster.
+- Removed third-party wordmarks from homepage cover posters and placed the source label in the top-left cover position.
+- Added portrait-style avatars to homepage cover posters, ready to swap for licensed creator photos later.
 - Reworked speaker avatars into distinct cartoon-style portraits to avoid relying on copyrighted speaker photos.
 - Added a first-pass word precision module on the learning page with sentence parsing, word chips, and per-word usage details.
 - Reworked the learning page into a scrollable sentence stream with a fixed word precision panel and narrower video column.

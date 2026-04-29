@@ -4,281 +4,31 @@ const AI_SESSION_KEY = "speakflow_ai_session";
 
 const videos = [
   {
-    id: "meeting-follow-up",
-    title: "会议里如何自然接话",
-    description: "真实职场会议片段，训练确认信息、表达赞同、补充观点和礼貌提出不同意见。",
-    source: "Workplace English",
-    sourceType: "workplace",
-    topic: "workplace",
-    topicLabel: "职场表达",
+    id: "notion-test-001",
+    title: "Notion 外部测试视频 01",
+    description: "测试阶段使用本地视频文件验证播放、字幕条和精读信息流程，素材来源记录保留在原始链接字段中。",
+    source: "Local test video",
+    sourceType: "external-link",
+    topic: "daily",
+    topicLabel: "外部测试",
     difficulty: "intermediate",
     difficultyLabel: "中级",
-    durationMinutes: 6,
-    date: "2026/4/24",
-    thumb: "meeting",
-    videoUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+    durationMinutes: 1,
+    date: "2026/4/29",
+    thumb: "external",
+    videoUrl: "Video/RPReplay_Final1713515371.mp4",
+    sourceUrl: "https://file.notion.so/f/f/d45aa900-2c78-46ff-9f54-f9c5fba62551/a78b2389-a7ae-45ac-9c47-0b7e79779d41/RPReplay_Final1713515371.mov?table=block&id=23ad8a19-1e07-48e3-a0bf-2fee20b03d5b&spaceId=d45aa900-2c78-46ff-9f54-f9c5fba62551&expirationTimestamp=1777492800000&signature=VF7tj71YfJgmqN5HrnhCD-1of4hLTNFRLm10YXdiAg4",
     videoType: "video/mp4",
-    demoNote: "Demo 视频：用于测试播放器和学习页流程，后续替换为真实英语片段。",
+    demoNote: "本地测试素材：当前播放已转码的 MP4 文件，避免 Notion 签名链接过期或 MOV 编码兼容问题。",
     featured: true,
     sentences: [
-      { english: "I just want to make sure I understand the timeline.", chinese: "我只是想确认一下我理解的时间线是对的。", note: "make sure I understand... 是职场中确认信息的高频表达。" },
-      { english: "That makes sense, but I have one concern.", chinese: "这说得通，不过我有一个顾虑。", note: "That makes sense, but... 可以礼貌地转入不同意见。" },
-      { english: "Could we revisit this after we check the numbers?", chinese: "我们核对数据之后，能不能再回来看这个问题？", note: "revisit this 适合表达稍后重新讨论。" }
-    ]
-  },
-  {
-    id: "ted-speaking-listen",
-    title: "TED 演讲：如何让别人愿意听你说话",
-    description: "TED 外部精选素材，用完整演讲训练开场、停顿、重音和观点表达。当前只嵌入官方播放器，不下载或剪辑视频。",
-    source: "TED",
-    sourceType: "interview",
-    topic: "interview",
-    topicLabel: "公开演讲",
-    difficulty: "advanced",
-    difficultyLabel: "高级",
-    durationMinutes: 10,
-    date: "2026/4/28",
-    thumb: "ted",
-    videoMode: "embed",
-    embedUrl: "https://embed.ted.com/talks/julian_treasure_how_to_speak_so_that_people_want_to_listen",
-    sourceUrl: "https://www.ted.com/talks/julian_treasure_how_to_speak_so_that_people_want_to_listen",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：当前仅用于体验验证。商业化或课程化使用 TED 内容前，需要确认 TED 授权规则。",
-    sentences: [
-      { english: "The human voice: It's the instrument we all play.", chinese: "人类的声音，是我们每个人都会演奏的乐器。", note: "The human voice 是演讲开场常见的主题句，用来快速建立讨论对象。" },
-      { english: "How can we speak powerfully to make change in the world?", chinese: "我们如何有力量地说话，从而改变世界？", note: "How can we... 是演讲中提出核心问题的自然结构。" },
-      { english: "There are a number of habits that we need to move away from.", chinese: "有一些习惯是我们需要远离的。", note: "move away from 可用于表达摆脱旧习惯或低效做法。" }
-    ]
-  },
-  { id: "kitchen-vlog", title: "一眼心动的厨房", description: "生活 Vlog 片段，适合训练自然语速下的日常描述和空间表达。", source: "Maddie Borge", sourceType: "vlog", topic: "daily", topicLabel: "日常", difficulty: "intermediate", difficultyLabel: "中级", durationMinutes: 2, date: "2026/4/23", thumb: "kitchen" },
-  { id: "dinner-ootd", title: "晚宴 OOTD", description: "短 Vlog 穿搭分享，适合练语速、连读和轻松自我描述。", source: "Michelle Choi", sourceType: "vlog", topic: "daily", topicLabel: "Vlog", difficulty: "beginner", difficultyLabel: "初级", durationMinutes: 1, date: "2026/4/22", thumb: "ootd" },
-  { id: "interview-opinion", title: "采访中如何表达观点", description: "访谈片段，学习解释想法、补充原因和自然转折。", source: "Mel Robbins", sourceType: "interview", topic: "interview", topicLabel: "采访", difficulty: "intermediate", difficultyLabel: "中级", durationMinutes: 7, date: "2026/4/21", thumb: "interview" },
-  { id: "coffee-before-work", title: "上班前的咖啡时间", description: "从买咖啡到进入工作状态，练习高频生活动词和寒暄表达。", source: "Alex Daily", sourceType: "vlog", topic: "workplace", topicLabel: "职场日常", difficulty: "beginner", difficultyLabel: "初级", durationMinutes: 4, date: "2026/4/19", thumb: "street" },
-  { id: "hotel-checkin", title: "酒店入住真实对话", description: "覆盖入住、确认房型、询问早餐和请求帮助。", source: "Travel Now", sourceType: "ai-dialogue", topic: "travel", topicLabel: "旅行", difficulty: "beginner", difficultyLabel: "初级", durationMinutes: 3, date: "2026/4/17", thumb: "travel" }
-];
-
-const tedLanguageVideos = [
-  {
-    id: "ted-learn-language",
-    title: "4 个学习新语言的理由",
-    speaker: "John McWhorter",
-    coverFocus: "Why Languages Matter",
-    portraitStyle: "scholar",
-    description: "John McWhorter 从文化、思维和生活体验出发，解释为什么即使有翻译技术，人仍然值得学习一门新语言。",
-    source: "TED",
-    sourceType: "ted",
-    topic: "language",
-    topicLabel: "语言学习",
-    difficulty: "intermediate",
-    difficultyLabel: "中级",
-    durationMinutes: 10,
-    date: "2016/2",
-    thumb: "ted-blue",
-    featured: true,
-    videoMode: "embed",
-    subtitleUrl: "subtitles/ted-learn-language.vtt",
-    embedUrl: "https://embed.ted.com/talks/john_mcwhorter_4_reasons_to_learn_a_new_language",
-    sourceUrl: "https://www.ted.com/talks/john_mcwhorter_4_reasons_to_learn_a_new_language",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：不下载、不剪辑 TED 视频，仅嵌入官方播放器。",
-    sentences: [
-      { english: "English is fast becoming the world's universal language.", chinese: "英语正在快速成为世界通用语言。", note: "universal language 可用于讨论英语、科技和跨文化沟通。" },
-      { english: "There are lots of reasons to learn another language.", chinese: "学习另一门语言有很多理由。", note: "There are lots of reasons to... 是演讲中展开观点的高频句型。" },
-      { english: "Languages channel your thoughts.", chinese: "语言会引导你的思维方式。", note: "channel 在这里表示引导、塑造。" }
-    ]
-  },
-  {
-    id: "ted-chinese-ease",
-    title: "轻松读懂中文的方式",
-    speaker: "ShaoLan",
-    coverFocus: "Visual Language",
-    portraitStyle: "designer",
-    description: "ShaoLan 用视觉化方式拆解汉字，适合练习解释概念、举例说明和教育类表达。",
-    source: "TED",
-    sourceType: "ted",
-    topic: "language",
-    topicLabel: "语言学习",
-    difficulty: "beginner",
-    difficultyLabel: "初级",
-    durationMinutes: 6,
-    date: "2013/2",
-    thumb: "ted-red",
-    videoMode: "embed",
-    embedUrl: "https://embed.ted.com/talks/shaolan_learn_to_read_chinese_with_ease",
-    sourceUrl: "https://www.ted.com/talks/shaolan_learn_to_read_chinese_with_ease",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：适合练习清晰解释和示例表达。",
-    sentences: [
-      { english: "Learning to speak Chinese is a hard task.", chinese: "学习说中文是一件困难的事。", note: "a hard task 是描述学习挑战的简洁表达。" },
-      { english: "Let me show you how it works.", chinese: "让我向你展示它是如何运作的。", note: "show you how it works 适合讲解流程或方法。" },
-      { english: "You can build more complex concepts from simple forms.", chinese: "你可以从简单形式构建更复杂的概念。", note: "build from... to... 适合解释学习路径。" }
-    ]
-  },
-  {
-    id: "ted-reading-world",
-    title: "一年读遍世界各国的一本书",
-    speaker: "Ann Morgan",
-    coverFocus: "Read The World",
-    portraitStyle: "reader",
-    description: "Ann Morgan 分享跨文化阅读计划，适合训练讲故事、描述目标和表达文化视角。",
-    source: "TED",
-    sourceType: "ted",
-    topic: "language",
-    topicLabel: "阅读表达",
-    difficulty: "intermediate",
-    difficultyLabel: "中级",
-    durationMinutes: 12,
-    date: "2015/9",
-    thumb: "ted-books",
-    videoMode: "embed",
-    embedUrl: "https://embed.ted.com/talks/ann_morgan_my_year_reading_a_book_from_every_country_in_the_world",
-    sourceUrl: "https://www.ted.com/talks/ann_morgan_my_year_reading_a_book_from_every_country_in_the_world",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：适合练习阅读、文化和个人挑战相关表达。",
-    sentences: [
-      { english: "I considered myself a fairly well-read person.", chinese: "我曾认为自己算是一个读书不少的人。", note: "consider myself... 适合自我介绍和观点铺垫。" },
-      { english: "I had a massive blind spot on my bookshelf.", chinese: "我的书架上存在一个巨大的盲区。", note: "blind spot 可用于表达认知盲区。" },
-      { english: "I decided to read a book from every country.", chinese: "我决定每个国家读一本书。", note: "decided to... 是讲述行动计划的基础结构。" }
-    ]
-  },
-  {
-    id: "ted-sign-language",
-    title: "手语中迷人的音乐性",
-    speaker: "Christine Sun Kim",
-    coverFocus: "Sign & Sound",
-    portraitStyle: "artist",
-    description: "Christine Sun Kim 讨论声音、手语和表达方式，适合训练抽象概念、感官描述和文化理解。",
-    source: "TED",
-    sourceType: "ted",
-    topic: "language",
-    topicLabel: "表达方式",
-    difficulty: "advanced",
-    difficultyLabel: "高级",
-    durationMinutes: 15,
-    date: "2015",
-    thumb: "ted-sign",
-    videoMode: "embed",
-    embedUrl: "https://embed.ted.com/talks/christine_sun_kim_the_enchanting_music_of_sign_language",
-    sourceUrl: "https://www.ted.com/talks/christine_sun_kim_the_enchanting_music_of_sign_language",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：适合练习关于声音、身体语言和表达边界的英文。",
-    sentences: [
-      { english: "Sound is like money, power, control.", chinese: "声音就像金钱、权力和控制。", note: "Sound is like... 用类比方式引出抽象观点。" },
-      { english: "Sign language has its own rhythm and music.", chinese: "手语有它自己的节奏和音乐性。", note: "has its own... 可用于强调独特性。" },
-      { english: "I want to reclaim ownership of sound.", chinese: "我想重新取回对声音的拥有权。", note: "reclaim ownership of... 是强有力的观点表达。" }
-    ]
-  },
-  {
-    id: "ted-dont-insist-english",
-    title: "不要只坚持英语",
-    speaker: "Patricia Ryan",
-    coverFocus: "English & Diversity",
-    portraitStyle: "teacher",
-    description: "Patricia Ryan 反思英语作为全球语言的影响，适合训练辩论、教育公平和语言政策表达。",
-    source: "TED",
-    sourceType: "ted",
-    topic: "language",
-    topicLabel: "英语思辨",
-    difficulty: "advanced",
-    difficultyLabel: "高级",
-    durationMinutes: 10,
-    date: "2010",
-    thumb: "ted-english",
-    videoMode: "embed",
-    embedUrl: "https://embed.ted.com/talks/patricia_ryan_don_t_insist_on_english",
-    sourceUrl: "https://www.ted.com/talks/patricia_ryan_don_t_insist_on_english",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：适合练习表达立场、提出反问和讨论英语学习的意义。",
-    sentences: [
-      { english: "English is an open door.", chinese: "英语是一扇打开的门。", note: "open door 可比喻机会和入口。" },
-      { english: "But are we losing something important?", chinese: "但我们是否正在失去一些重要的东西？", note: "Are we losing...? 适合提出反思性问题。" },
-      { english: "We need to celebrate diversity.", chinese: "我们需要赞美多样性。", note: "celebrate diversity 是教育和文化议题中的高频表达。" }
-    ]
-  },
-  {
-    id: "ted-language-money",
-    title: "语言会影响你的储蓄能力吗",
-    speaker: "Keith Chen",
-    coverFocus: "Language Shapes Time",
-    portraitStyle: "analyst",
-    description: "Keith Chen 从语言结构谈经济行为，适合训练数据解释、因果关系和研究发现表达。",
-    source: "TED",
-    sourceType: "ted",
-    topic: "language",
-    topicLabel: "语言与思维",
-    difficulty: "advanced",
-    difficultyLabel: "高级",
-    durationMinutes: 12,
-    date: "2012/6",
-    thumb: "ted-data",
-    videoMode: "embed",
-    embedUrl: "https://embed.ted.com/talks/keith_chen_could_your_language_affect_your_ability_to_save_money",
-    sourceUrl: "https://www.ted.com/talks/keith_chen_could_your_language_affect_your_ability_to_save_money",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：适合练习研究类、数据类和比较类英文表达。",
-    sentences: [
-      { english: "Languages differ in how they divide up time.", chinese: "不同语言划分时间的方式不同。", note: "differ in how... 适合描述差异。" },
-      { english: "This turns out to have surprising effects.", chinese: "结果证明这会产生令人意外的影响。", note: "turns out to... 常用于引出研究结果。" },
-      { english: "The future feels more distant.", chinese: "未来感觉更遥远。", note: "feels more distant 可用于抽象感受描述。" }
-    ]
-  },
-  {
-    id: "ted-dont-kill-language",
-    title: "不要杀死你的语言",
-    speaker: "Suzanne Talhouk",
-    coverFocus: "Identity & Mother Tongue",
-    portraitStyle: "speaker",
-    description: "Suzanne Talhouk 讨论母语、身份和文化表达，适合训练情感表达和价值观点。",
-    source: "TED",
-    sourceType: "ted",
-    topic: "language",
-    topicLabel: "文化表达",
-    difficulty: "intermediate",
-    difficultyLabel: "中级",
-    durationMinutes: 14,
-    date: "2012/12",
-    thumb: "ted-culture",
-    videoMode: "embed",
-    embedUrl: "https://embed.ted.com/talks/suzanne_talhouk_don_t_kill_your_language",
-    sourceUrl: "https://www.ted.com/talks/suzanne_talhouk_don_t_kill_your_language",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：该演讲为阿拉伯语演讲，可结合字幕训练跨语言理解。",
-    sentences: [
-      { english: "Language is not just a tool.", chinese: "语言不只是一个工具。", note: "not just... 用于强调更深层意义。" },
-      { english: "It carries our identity and memory.", chinese: "它承载着我们的身份和记忆。", note: "carry identity and memory 是文化讨论中的自然表达。" },
-      { english: "We should not be ashamed of our language.", chinese: "我们不应该为自己的语言感到羞耻。", note: "be ashamed of... 用于表达羞耻或自我接纳。" }
-    ]
-  },
-  {
-    id: "ted-simplify-spelling",
-    title: "我们应该简化拼写吗",
-    speaker: "Karina Galperin",
-    coverFocus: "Spelling Reform",
-    portraitStyle: "writer",
-    description: "Karina Galperin 讨论英语拼写规则和学习负担，适合训练提出问题、分析规则和表达建议。",
-    source: "TED",
-    sourceType: "ted",
-    topic: "language",
-    topicLabel: "拼写与规则",
-    difficulty: "intermediate",
-    difficultyLabel: "中级",
-    durationMinutes: 16,
-    date: "2015",
-    thumb: "ted-spelling",
-    videoMode: "embed",
-    embedUrl: "https://embed.ted.com/talks/karina_galperin_should_we_simplify_spelling",
-    sourceUrl: "https://www.ted.com/talks/karina_galperin_should_we_simplify_spelling",
-    attribution: "TED Talk，使用 TED 官方嵌入播放器并链接回 TED.com。",
-    demoNote: "外部素材模式：适合练习关于英语拼写、规则和学习效率的表达。",
-    sentences: [
-      { english: "Spelling can be surprisingly hard to master.", chinese: "拼写可能出人意料地难以掌握。", note: "surprisingly hard to master 可用于描述学习难点。" },
-      { english: "Language evolves over time.", chinese: "语言会随着时间演变。", note: "evolves over time 是语言变化主题的核心表达。" },
-      { english: "Maybe it is time to rethink the rules.", chinese: "也许是时候重新思考这些规则了。", note: "It is time to rethink... 适合提出改革建议。" }
+      { english: "This is the first external test video.", chinese: "这是第一个外部链接测试视频。", note: "占位字幕：等拿到原始字幕后替换为真实句子。" },
+      { english: "We are testing playback, subtitles, and close reading notes.", chinese: "我们正在测试播放、字幕和精读信息。", note: "占位精读：用于先验证页面流程。" },
+      { english: "The final version should use authorized or owned content.", chinese: "正式版本应使用自有或已授权内容。", note: "内容策略提醒：链接引用不等于获得商用授权。" }
     ]
   }
 ];
 
-videos.splice(0, videos.length, ...tedLanguageVideos);
 
 const aiScenarios = [
   {
@@ -349,41 +99,24 @@ const aiScenarios = [
 
 let activeAiScenarioId = "coffee";
 let aiMessages = [];
-let activeTipsVideoId = "meeting-follow-up";
+let activeTipsVideoId = "notion-test-001";
 let activeExpressionTab = "words";
 let activeExpressionFilter = "all";
 let tipsChineseVisible = true;
 
 const expressionLibrary = {
-  "meeting-follow-up": {
-    summary: "职场会议片段，重点练习确认信息、表达顾虑和推动下一步。",
+  "notion-test-001": {
+    summary: "外部链接测试视频，先用占位精读内容验证字幕、词汇和表达卡片流程。",
     words: [
-      { term: "timeline", phonetic: "/ˈtaɪmlaɪn/", cn: "时间线；进度安排", en: "schedule, sequence", example: "I just want to make sure I understand the timeline.", exampleCn: "我只是想确认一下我理解的时间线是对的。", status: "unmarked" },
-      { term: "concern", phonetic: "/kənˈsɜːrn/", cn: "顾虑；担心", en: "worry, issue", example: "That makes sense, but I have one concern.", exampleCn: "这说得通，不过我有一个顾虑。", status: "known" },
-      { term: "revisit", phonetic: "/ˌriːˈvɪzɪt/", cn: "重新讨论；再次查看", en: "return to, discuss again", example: "Could we revisit this after we check the numbers?", exampleCn: "我们核对数据之后，能不能再回来看这个问题？", status: "unknown" }
+      { term: "external", phonetic: "/ɪkˈstɜːrnəl/", cn: "外部的", en: "outside; linked from another source", example: "This is the first external test video.", exampleCn: "这是第一个外部链接测试视频。", status: "unmarked" },
+      { term: "playback", phonetic: "/ˈpleɪbæk/", cn: "播放", en: "video or audio playing", example: "We are testing playback, subtitles, and close reading notes.", exampleCn: "我们正在测试播放、字幕和精读信息。", status: "unmarked" }
     ],
     phrases: [
-      { term: "make sure I understand", phonetic: "", cn: "确认我理解正确", en: "confirm my understanding", example: "I just want to make sure I understand the timeline.", exampleCn: "我只是想确认一下时间线。" },
-      { term: "That makes sense, but...", phonetic: "", cn: "这说得通，不过……", en: "polite disagreement starter", example: "That makes sense, but I have one concern.", exampleCn: "这说得通，不过我有一个顾虑。" },
-      { term: "after we check the numbers", phonetic: "", cn: "在我们核对数据之后", en: "after verifying the data", example: "Could we revisit this after we check the numbers?", exampleCn: "我们核对数据之后再看这个问题好吗？" }
+      { term: "test video", phonetic: "", cn: "测试视频", en: "a video used to validate a feature", example: "This is the first external test video.", exampleCn: "这是第一个外部链接测试视频。" },
+      { term: "close reading notes", phonetic: "", cn: "精读笔记", en: "detailed learning notes for a line or expression", example: "We are testing playback, subtitles, and close reading notes.", exampleCn: "我们正在测试播放、字幕和精读信息。" }
     ],
     native: [
-      { term: "I have one concern.", phonetic: "", cn: "我有一个顾虑。", en: "soft way to raise a disagreement", example: "That makes sense, but I have one concern.", exampleCn: "这说得通，不过我有一个顾虑。" },
-      { term: "Could we revisit this...?", phonetic: "", cn: "我们能不能稍后再讨论这个？", en: "meeting-friendly way to defer a decision", example: "Could we revisit this after we check the numbers?", exampleCn: "我们核对数据之后，能不能再回来看这个问题？" }
-    ]
-  },
-  "hotel-checkin": {
-    summary: "旅行入住场景，重点练习预订、房型、早餐和礼貌请求。",
-    words: [
-      { term: "reservation", phonetic: "/ˌrezərˈveɪʃn/", cn: "预订", en: "booking", example: "I have a reservation under Li.", exampleCn: "我用 Li 的名字预订了。", status: "unmarked" },
-      { term: "available", phonetic: "/əˈveɪləbl/", cn: "可用的；有空的", en: "free, ready", example: "Is a higher floor available?", exampleCn: "有高楼层房间吗？", status: "unknown" }
-    ],
-    phrases: [
-      { term: "under the name...", phonetic: "", cn: "以……的名字", en: "booking name expression", example: "The reservation is under the name Li.", exampleCn: "预订人姓名是 Li。" },
-      { term: "Would it be possible to...?", phonetic: "", cn: "是否可以……？", en: "polite request", example: "Would it be possible to check out late?", exampleCn: "是否可以晚一点退房？" }
-    ],
-    native: [
-      { term: "I have a reservation under...", phonetic: "", cn: "我用……的名字订了房。", en: "natural hotel check-in opener", example: "Hi, I have a reservation under Li.", exampleCn: "你好，我用 Li 的名字订了房。" }
+      { term: "The final version should use...", cn: "正式版本应使用……", en: "A clear way to state a future product rule.", example: "The final version should use authorized or owned content.", exampleCn: "正式版本应使用自有或已授权内容。" }
     ]
   }
 };
@@ -646,11 +379,10 @@ function renderVideoPreview(video, extraClass = "") {
   if (video.videoMode === "embed" && video.embedUrl) {
     return `
       <div class="${className}" aria-label="${video.title} 视频封面">
-        <div class="ted-cover-poster">
-          <div class="speaker-portrait ${video.portraitStyle || "speaker"}" aria-hidden="true"><i>${getSpeakerInitials(video.speaker)}</i></div>
-          <strong>${video.speaker || "Speaker"}</strong>
+        <div class="media-cover-poster">
+          <strong>${video.source || "SpeakFlow"}</strong>
           <small>${video.topicLabel}</small>
-          <b>${video.coverFocus || video.title}</b>
+          <b>${video.title}</b>
           <em>${video.difficultyLabel} · ${video.durationMinutes} 分钟</em>
         </div>
         ${duration}
@@ -1401,7 +1133,7 @@ function renderAiFeedback(scenario, latestText = "", scoredResult = null) {
 }
 
 function getExpressionItems(videoId, tab) {
-  const library = expressionLibrary[videoId] || expressionLibrary["meeting-follow-up"];
+  const library = expressionLibrary[videoId] || expressionLibrary["notion-test-001"];
   return library[tab] || [];
 }
 
@@ -1453,7 +1185,7 @@ function renderTipsHeader() {
   if (!title || !summary || !link) return;
 
   const video = getVideoById(activeTipsVideoId);
-  const library = expressionLibrary[activeTipsVideoId] || expressionLibrary["meeting-follow-up"];
+  const library = expressionLibrary[activeTipsVideoId] || expressionLibrary["notion-test-001"];
   title.textContent = video.title;
   summary.textContent = library.summary;
   link.href = `learn.html?video=${video.id}`;

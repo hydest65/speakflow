@@ -3,12 +3,12 @@
 ## 当前版本
 
 ```text
-0.1.4
+0.2.1
 ```
 
-版本日期：2026-04-28
+版本日期：2026-04-29
 
-版本性质：TED 素材首页与学习页体验打磨版。重点保留首页 8 个 TED 语言学习素材、视频封面工作台体验，并将学习页重排为参考截图方向的“视频 + 动态字幕”双栏布局。
+版本性质：本地单视频测试库收尾版。重点是清空旧视频库内容，从用户提供的 Notion 视频素材重新开始，并将浏览器不稳定的 MOV 播放路径切换为本地 H.264 MP4 测试文件。
 
 ## 仓库状态
 
@@ -32,44 +32,68 @@ render.yaml
 
 ## 本版完成
 
-- 首页视频库保留为 8 个 TED 语言学习相关素材。
-- 首页视频卡片改为一行 4 个视频预览窗口。
-- TED 视频封面从播放器预览改为静态封面，去掉播放三角。
-- TED 封面显示讲演人、主题词、不同颜色和卡通式讲演人头像，避免依赖真实人物照片版权。
-- 学习页多次重排后，当前方向改为参考截图的双栏工作台：左侧视频和简介，右侧动态字幕。
-- 学习页隐藏全局顶部导航，改用视频卡内部返回入口。
-- 动态字幕区增加工具栏、字幕列表和浮动“自动”按钮。
-- AI API 暂停继续调试，保留本地模拟和后端 provider 结构。
-- 增加本地 WebVTT 字幕加载和解析的实验性管线：`subtitleUrl`、`parseVtt()`、`hydrateSubtitles()`、`subtitles/ted-learn-language.vtt`。
-- 服务端增加 `.vtt` 的 `text/vtt; charset=utf-8` 静态类型支持。
+- 首页改为 Option B 安静学习入口，视频库移到 `library.html` 分支页面。
+- 导航统一为：首页、视频库、收藏夹、学习卡片、AI 陪练、会员。
+- 清空旧第三方演讲素材和旧本地演示视频条目。
+- 视频库从 1 条测试视频重新开始：`notion-test-001`。
+- 原始 Notion 文件链接保留为来源记录，站内播放改用本地文件。
+- 将 `Video/RPReplay_Final1713515371.mov` 转码为 `Video/RPReplay_Final1713515371.mp4`，并让学习页播放 MP4。
+- 新增 `video-test.html`，用于绕过业务页面直接测试 MP4 播放。
+- 新增外部链接导入模板 `data/external-video-import-template.json`。
+- 版本号从 `0.2.0` 更新到 `0.2.1`，并同步 `VERSION`、`package.json`、`docs/CHANGELOG.md`。
+- 产品、技术、视觉文档已同步本地单视频测试方向。
+
+## 当前测试入口
+
+视频库：
+
+```text
+file:///C:/Users/lixin11190/Documents/New%20project%202/speakflow/library.html
+```
+
+学习页：
+
+```text
+file:///C:/Users/lixin11190/Documents/New%20project%202/speakflow/learn.html?video=notion-test-001
+```
+
+视频直测页：
+
+```text
+file:///C:/Users/lixin11190/Documents/New%20project%202/speakflow/video-test.html
+```
 
 ## 已知问题
 
-- 字幕解析和字幕来源策略尚未定稿。当前 VTT 文件只用于验证动态字幕栏体验，下一轮准备推倒重做字幕数据规范。
-- TED 内容用于原型验证时应继续使用官方嵌入链接和来源说明；正式商业化前需要确认 TED 内容和字幕授权。
-- 真实 AI API 暂停部署；MiniMax Key 问题不在本版继续处理。
-- 本地服务如果是旧进程，`.vtt` 的 Content-Type 可能仍显示为 `application/octet-stream`；重启服务后会应用新的 `text/vtt` 配置。
+- 当前字幕和精读内容仍是占位内容，等待用户提供真实字幕和精读信息后替换。
+- `sourceUrl` 中保留 Notion 签名链接作为来源记录，该链接可能过期，不再作为站内播放源。
+- 命令行 Git 在当前 Codex 环境不可用，无法完成本地与 GitHub 远端比较。
+- Node 执行在当前 Codex 环境被系统拒绝，无法运行 `npm run check` 或 `node --check`。
+- FFmpeg 在用户 PowerShell 中可用，但当前 Codex 命令环境未识别 `ffmpeg`；转码结果文件已在项目目录中确认存在。
 
-## 收尾检查建议
+## 本地收尾检查
 
-1. 打开首页，确认 8 个 TED 视频卡一行 4 个、封面无播放三角、显示讲演人和卡通头像。
-2. 打开 `learn.html?video=ted-learn-language`，确认学习页是左视频、右动态字幕双栏布局。
-3. 确认动态字幕列表可以滚动，且页面不再显示逐词精读面板。
-4. 打开 `subtitles/ted-learn-language.vtt`，确认本地字幕文件可访问。
-5. 打开 `/api/health`，确认服务仍返回 `ok: true`。
-6. 用 GitHub Desktop 提交并推送。
+- 关键页面文件存在：`index.html`、`library.html`、`learn.html`、`favorites.html`、`tips.html`、`ai.html`、`pricing.html`、`video-test.html`。
+- 关键资源存在：`styles.css`、`app.js`、`assets/speakflow-logo.png`、`Video/RPReplay_Final1713515371.mp4`。
+- 当前视频库数据只保留 `notion-test-001`。
+- 站内播放源已指向 `Video/RPReplay_Final1713515371.mp4`。
+- 旧视频 id 未在页面和主视频数据入口中继续出现。
 
 ## GitHub Desktop 操作
 
-如果命令行 Git 不可用，用 GitHub Desktop 完成：
+由于当前环境无法运行 Git，请用 GitHub Desktop 完成同步：
 
-1. 确认当前仓库是 `speakflow`。
-2. 查看左侧 Changes。
-3. Summary 填写：
+1. 打开 GitHub Desktop，确认当前仓库是 `speakflow`。
+2. 先点击 `Fetch origin`，检查远端是否有新变化。
+3. 如果远端有更新，先 `Pull origin`，确认没有冲突后再继续。
+4. 查看左侧 Changes，确认包含本版修改。
+5. Summary 填写：
 
 ```text
-Release v0.1.4 TED learning layout prototype
+Release v0.2.1 local video test library
 ```
 
-4. 点击 `Commit to main`。
-5. 点击 `Push origin`。
+6. 点击 `Commit to main`。
+7. 点击 `Push origin`。
+
+如果 GitHub Desktop 显示本地和远端都有新提交，不要直接覆盖，先停下来决定合并方向。

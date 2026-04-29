@@ -67,3 +67,18 @@ video's inline `sentences`.
 - Decide whether production subtitles are authored as VTT, JSON, or imported SRT.
 - Add a small validation script before importing larger subtitle batches.
 - Reconnect word precision and vocabulary review after the cue model is stable.
+
+## External Link Test Imports
+
+For temporary local testing, external video sources should be stored as links and
+metadata only. Do not download or re-host third-party video files.
+
+Use `data/external-video-import-template.json` as the import shape when copying
+3-4 records from a source database:
+
+- `sourceUrl`: original page for attribution and manual review.
+- `embedUrl`: optional embeddable player URL if the source supports iframe use.
+- `videoUrl`: optional direct `.mp4/.webm/.mov` link for local playback testing.
+- `sentences`: subtitle lines mapped to the same normalized cue shape used by the
+  learning page.
+- `learningCards`: optional close-reading words, phrases, and expression notes.

@@ -4,12 +4,12 @@
 
 当前项目是静态前端原型，使用：
 
-- HTML
-- CSS
-- JavaScript 数据驱动渲染
-- Node.js 后端代理
-- 本地图片资源
-- 模拟数据
+  HTML
+  CSS
+  JavaScript 数据驱动渲染
+  Node.js 后端代理
+  本地图片资源
+  模拟数据
 
 目标是先验证信息架构、页面布局和核心学习流程。
 
@@ -44,7 +44,7 @@ Tips 负责展示真实视频学习方法。
 
 AI陪练负责展示场景列表、对话区、输入入口、评分和建议。
 
-AI 陪练优先调用 `/api/ai/chat`。后端通过 `AI_PROVIDER` 选择模型供应商：默认 `minimax`，读取 `MINIMAX_API_KEY` 并调用 MiniMax OpenAI-compatible Chat Completions；也保留 `openai` 作为备用。若后端不可用或 Key 未配置，前端自动回退到本地模拟回复。
+AI 陪练优先调用 `/api/ai/chat`。后端通过 `AI_PROVIDER` 选择模型供应商：默认 `minimax`，读取 `MINIMAX_API_KEY` 并调用 MiniMax OpenAI compatible Chat Completions；也保留 `openai` 作为备用。若后端不可用或 Key 未配置，前端自动回退到本地模拟回复。
 
 后端还提供 `GET /api/health`，用于部署后检查服务是否可访问，以及当前 provider 是否配置了 API Key。
 
@@ -59,7 +59,7 @@ type Video = {
   id: string;
   title: string;
   description: string;
-  sourceType: "vlog" | "interview" | "workplace" | "ai-dialogue";
+  sourceType: "vlog" | "interview" | "workplace" | "ai dialogue";
   topic: "daily" | "workplace" | "travel" | "interview" | "vlog";
   difficulty: "beginner" | "intermediate" | "advanced";
   durationSeconds: number;
@@ -84,30 +84,30 @@ type Sentence = {
 
 阶段 1：静态原型增强。
 
-- 用本地 JS 数据驱动视频列表。已完成第一版。
-- 用 `localStorage` 保存收藏视频。已完成第一版。
-- 用 `localStorage` 保存打卡状态。开发中。
-- 用模拟数据展示 AI 评分。已用于跟读和 AI 陪练原型。
+  用本地 JS 数据驱动视频列表。已完成第一版。
+  用 `localStorage` 保存收藏视频。已完成第一版。
+  用 `localStorage` 保存打卡状态。开发中。
+  用模拟数据展示 AI 评分。已用于跟读和 AI 陪练原型。
 
 阶段 2：React 应用化。
 
-- Vite + React。
-- TypeScript。
-- 组件化导航、视频卡片、字幕列表、AI 对话、会员记录。
+  Vite + React。
+  TypeScript。
+  组件化导航、视频卡片、字幕列表、AI 对话、会员记录。
 
 阶段 3：后端产品化。
 
-- 视频、收藏、录音、AI 评分、学习进度和支付 API。AI 后端代理已完成第一版。
-- 用户登录和会员权限。
+  视频、收藏、录音、AI 评分、学习进度和支付 API。AI 后端代理已完成第一版。
+  用户登录和会员权限。
 
 ## 6. 0.1.4 技术状态补充
 
-- `videos` 数据当前通过 `tedLanguageVideos` 覆盖视频库素材，用于展示 8 个 TED 语言学习视频。
-- 学习页支持 `subtitleUrl` 字段，并通过 `fetch()` 加载本地 `.vtt` 文件。
-- `parseVtt()` 会将 WebVTT cue 转换为 `{ start, end, english, chinese, note }` 字幕数据。
-- `hydrateSubtitles()` 会在学习页初始渲染后异步替换动态字幕栏；加载失败时回退到内置 `sentences`。
-- `server.js` 已增加 `.vtt` 的 `text/vtt; charset=utf-8` 静态资源类型。
-- 字幕管线仍为实验性实现。下一轮应先定义统一字幕数据模型，再决定手工录入、VTT/SRT 导入或后端解析。
+  `videos` 数据已移除第三方演讲平台素材覆盖逻辑，当前回到本地原型视频列表。
+  学习页支持 `subtitleUrl` 字段，并通过 `fetch()` 加载本地 `.vtt` 文件。
+  `parseVtt()` 会将 WebVTT cue 转换为 `{ start, end, english, chinese, note }` 字幕数据。
+  `hydrateSubtitles()` 会在学习页初始渲染后异步替换动态字幕栏；加载失败时回退到内置 `sentences`。
+  `server.js` 已增加 `.vtt` 的 `text/vtt; charset=utf 8` 静态资源类型。
+  字幕管线仍为实验性实现。下一轮应先定义统一字幕数据模型，再决定手工录入、VTT/SRT 导入或后端解析。
 
 ## 7. Subtitle data model
 
@@ -136,34 +136,52 @@ to choose the production subtitle source format, then add validation before
 larger subtitle batches are imported.
 ## 8. 0.1.5 Subtitle AI Lab
 
-- `subtitle-lab.html` and `subtitle-lab.js` add a subtitle annotation workbench for direct video links, local video preview, manual transcript mode, cue editing, and export.
-- `server.js` now exposes `/api/subtitle/jobs`, `/api/subtitle/jobs/:jobId`, `/api/subtitle/jobs/:jobId/cues/:cueId`, `/api/subtitle/jobs/:jobId/export`, and `/api/subtitle/diagnostics`.
-- Direct video-link mode is designed to download the video, extract audio through FFmpeg, call OpenAI audio transcription, normalize timestamped cues, and generate cue-level learning notes.
-- Manual transcript mode remains available for fast UI testing and for videos where the user already has an English transcript.
-- Generated job data is stored in local JSON for the MVP. Production should move this to PostgreSQL and queue long-running jobs with BullMQ or Celery.
-- `docs/VIDEO_SUBTITLE_AI_SYSTEM.md` is the detailed architecture source for database tables, API shape, and the migration path to a production subtitle pipeline.
-## 9. 0.2.0 target video-learning architecture layer
+  `subtitle lab.html` and `subtitle lab.js` add a subtitle annotation workbench for direct video links, local video preview, manual transcript mode, cue editing, and export.
+  `server.js` now exposes `/api/subtitle/jobs`, `/api/subtitle/jobs/:jobId`, `/api/subtitle/jobs/:jobId/cues/:cueId`, `/api/subtitle/jobs/:jobId/export`, and `/api/subtitle/diagnostics`.
+  Direct video link mode is designed to download the video, extract audio through FFmpeg, call OpenAI audio transcription, normalize timestamped cues, and generate cue level learning notes.
+  Manual transcript mode remains available for fast UI testing and for videos where the user already has an English transcript.
+  Generated job data is stored in local JSON for the MVP. Production should move this to PostgreSQL and queue long running jobs with BullMQ or Celery.
+  `docs/VIDEO_SUBTITLE_AI_SYSTEM.md` is the detailed architecture source for database tables, API shape, and the migration path to a production subtitle pipeline.
+## 9. 0.2.0 target video learning architecture layer
 
-SpeakFlow now has a production-shaped API layer based on separate learning resources:
+SpeakFlow now has a production shaped API layer based on separate learning resources:
 
-- `videos`: video metadata, difficulty, duration, display order, thumbnail, and future Tencent/Cloudflare delivery fields.
-- `subtitles`: timestamped English/Chinese cues.
-- `subtitle_highlights`: precomputed word and phrase highlight matches.
-- `word_cards`, `phrase_cards`, `expression_cards`: close-reading learning cards connected to videos and subtitles.
-- `user_video_progress`: per-user watch position, max progress, watch duration, and completion state.
+  `videos`: video metadata, difficulty, duration, display order, thumbnail, and future Tencent/Cloudflare delivery fields.
+  `subtitles`: timestamped English/Chinese cues.
+  `subtitle_highlights`: precomputed word and phrase highlight matches.
+  `word_cards`, `phrase_cards`, `expression_cards`: close reading learning cards connected to videos and subtitles.
+  `user_video_progress`: per user watch position, max progress, watch duration, and completion state.
 
 Current MVP endpoints:
 
-- `GET /api/videos`
-- `GET /api/videos/:videoId/detail`
-- `GET /api/videos/:videoId/subtitles`
-- `GET /api/videos/:videoId/subtitle-highlights`
-- `GET /api/learning/videos/:videoId/close-reading`
-- `GET /api/user/video-progress/:videoId`
-- `POST /api/user/video-progress`
+  `GET /api/videos`
+  `GET /api/videos/:videoId/detail`
+  `GET /api/videos/:videoId/subtitles`
+  `GET /api/videos/:videoId/subtitle highlights`
+  `GET /api/learning/videos/:videoId/close reading`
+  `GET /api/user/video progress/:videoId`
+  `POST /api/user/video progress`
 
-For now these endpoints use `data/app-data.json` with seed data when the file does not exist. The route names and payloads are intentionally close to the intended PostgreSQL/Supabase data model so the UI can be redesigned later without changing the backend contract.
+For now these endpoints use `data/app data.json` with seed data when the file does not exist. The route names and payloads are intentionally close to the intended PostgreSQL/Supabase data model so the UI can be redesigned later without changing the backend contract.
 
-`api-learn.html` is the first page consuming this API layer. It loads video detail, renders timestamped subtitles, displays close-reading cards, and writes video progress back through `/api/user/video-progress`.
+`api learn.html` is the first page consuming this API layer. It loads video detail, renders timestamped subtitles, displays close reading cards, and writes video progress back through `/api/user/video progress`.
 
 Detailed migration notes live in `docs/SPEAKFLOW_TARGET_ARCHITECTURE.md`.
+
+## 10. 0.2.1 local video test library
+
+The static `videos` array has been reset to a single local test video:
+
+  `notion-test-001`
+
+Playback now uses:
+
+  `Video/RPReplay_Final1713515371.mp4`
+
+The original Notion signed URL is kept only as `sourceUrl` for traceability.
+The learning page should use the MP4 path for browser-compatible local testing.
+The former MOV file remains in `Video/` as source material but is not the active
+playback file.
+
+`video-test.html` is a minimal direct playback page for checking the MP4 file
+outside the main learning UI.
