@@ -81,3 +81,9 @@ AI陪练使用对话工作台布局：左侧场景，中间对话，右侧评分
 - 学习页当前按参考截图方向改为双栏沉浸式布局：左侧视频和简介，右侧动态字幕。
 - 学习页隐藏全局顶部导航，减少沉浸学习时的干扰。
 - 动态字幕栏应保持可滚动、卡片式、行距紧凑，并预留收藏星标和自动滚动控制。
+## 7. 0.1.5 Subtitle Lab visual rules
+
+- The subtitle lab should feel like a production workbench, not a marketing page.
+- Keep the first screen focused on input, environment readiness, video preview, subtitle list, and export actions.
+- Use compact panels with 8px radius, clear status chips, and editable text areas that do not shift layout while typing.
+- The environment diagnostics block should use warm warning colors when setup is incomplete and green confirmation when real direct-link parsing is ready.

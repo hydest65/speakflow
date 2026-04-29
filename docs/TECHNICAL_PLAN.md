@@ -106,3 +106,37 @@ type Sentence = {
 - `hydrateSubtitles()` 会在学习页初始渲染后异步替换动态字幕栏；加载失败时回退到内置 `sentences`。
 - `server.js` 已增加 `.vtt` 的 `text/vtt; charset=utf-8` 静态资源类型。
 - 字幕管线仍为实验性实现。下一轮应先定义统一字幕数据模型，再决定手工录入、VTT/SRT 导入或后端解析。
+
+## 7. Subtitle data model
+
+The learning page now normalizes inline `sentences` and parsed VTT cues through
+one frontend cue model before rendering. The current normalized fields are:
+
+```ts
+type SubtitleCue = {
+  id: string;
+  videoId: string;
+  index: number;
+  startSeconds: number;
+  endSeconds: number;
+  start: string;
+  end: string;
+  english: string;
+  chinese: string;
+  note: string;
+  keywords: string[];
+  source: "inline" | "vtt" | "srt" | "api";
+};
+```
+
+See `docs/SUBTITLE_DATA.md` for the field rules and VTT mapping. The next step is
+to choose the production subtitle source format, then add validation before
+larger subtitle batches are imported.
+## 8. 0.1.5 Subtitle AI Lab
+
+- `subtitle-lab.html` and `subtitle-lab.js` add a subtitle annotation workbench for direct video links, local video preview, manual transcript mode, cue editing, and export.
+- `server.js` now exposes `/api/subtitle/jobs`, `/api/subtitle/jobs/:jobId`, `/api/subtitle/jobs/:jobId/cues/:cueId`, `/api/subtitle/jobs/:jobId/export`, and `/api/subtitle/diagnostics`.
+- Direct video-link mode is designed to download the video, extract audio through FFmpeg, call OpenAI audio transcription, normalize timestamped cues, and generate cue-level learning notes.
+- Manual transcript mode remains available for fast UI testing and for videos where the user already has an English transcript.
+- Generated job data is stored in local JSON for the MVP. Production should move this to PostgreSQL and queue long-running jobs with BullMQ or Celery.
+- `docs/VIDEO_SUBTITLE_AI_SYSTEM.md` is the detailed architecture source for database tables, API shape, and the migration path to a production subtitle pipeline.

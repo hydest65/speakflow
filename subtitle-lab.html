@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字幕解析与 AI 批注 | SpeakFlow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="subtitle-lab">
+  <header class="topbar">
+    <a class="logo" href="index.html" aria-label="SpeakFlow 首页">
+      <span class="logo-mark"><span></span></span>
+      <span class="logo-type"><strong>SpeakFlow</strong><small>Real Video Speaking Lab</small></span>
+    </a>
+    <nav class="pill-nav" aria-label="主导航">
+      <a href="index.html">视频库</a>
+      <a href="learn.html">跟读训练</a>
+      <a class="active" href="subtitle-lab.html">字幕批注</a>
+      <a href="ai.html">AI 陪练</a>
+      <a href="pricing.html">会员</a>
+    </nav>
+  </header>
+
+  <main class="subtitle-lab-shell">
+    <section class="subtitle-lab-toolbar panel">
+      <div>
+        <p class="eyebrow">Subtitle AI Lab</p>
+        <h1>视频字幕解析与 AI 学习备注</h1>
+        <p>输入可直接播放的视频链接，系统会下载视频、提取音频、转写字幕并生成学习备注；也可以粘贴已有英文稿快速测试编辑和导出。</p>
+        <div id="subtitle-diagnostics" class="subtitle-diagnostics">正在检查真实解析配置...</div>
+      </div>
+      <form id="subtitle-job-form" class="subtitle-job-form">
+        <label>
+          <span>视频文件</span>
+          <input id="video-file" type="file" accept="video/*">
+        </label>
+        <label>
+          <span>视频链接</span>
+          <input id="video-url" type="url" placeholder="https://example.com/video.mp4">
+        </label>
+        <label>
+          <span>可选：粘贴已有英文稿</span>
+          <textarea id="transcript-text" rows="3" placeholder="Paste transcript here. Leave blank to use demo subtitles."></textarea>
+        </label>
+        <button class="button primary" type="submit">生成字幕与批注</button>
+      </form>
+    </section>
+
+    <section class="subtitle-lab-workbench">
+      <article class="panel subtitle-video-panel">
+        <div class="subtitle-video-frame">
+          <video id="subtitle-video" controls preload="metadata"></video>
+          <div class="empty-video" id="empty-video">请选择一个视频文件</div>
+        </div>
+        <div class="subtitle-export-row">
+          <button type="button" data-export="markdown">Markdown</button>
+          <button type="button" data-export="doc">Word</button>
+          <button type="button" data-export="srt">SRT</button>
+          <button type="button" data-export="vtt">VTT</button>
+          <button type="button" data-export="json">JSON</button>
+        </div>
+      </article>
+
+      <aside class="panel subtitle-editor-panel">
+        <div class="subtitle-editor-head">
+          <div>
+            <p class="eyebrow">Cue List</p>
+            <h2>字幕与备注</h2>
+          </div>
+          <span id="subtitle-job-status">等待生成</span>
+        </div>
+        <div id="subtitle-cue-list" class="subtitle-cue-list">
+          <p class="subtitle-empty-state">生成后，每条字幕会显示中文翻译、重点词汇、语法说明、口语表达说明和跟读建议。</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="subtitle-lab.js"></script>
+</body>
+</html>

@@ -938,12 +938,42 @@ function formatSubtitleTime(totalSeconds) {
   return `${minutes}:${String(seconds).padStart(2, "0")}`;
 }
 
+function normalizeSubtitleCue(cue, index, videoId, source = "inline") {
+  const startSeconds = Number.isFinite(cue.startSeconds)
+    ? cue.startSeconds
+    : parseVttTimestamp(cue.start || `00:00:${String(index * 7 + 1).padStart(2, "0")}.000`);
+  const endSeconds = Number.isFinite(cue.endSeconds)
+    ? cue.endSeconds
+    : parseVttTimestamp(cue.end || `00:00:${String(index * 7 + 6).padStart(2, "0")}.000`);
+
+  return {
+    id: cue.id || `${videoId}-cue-${String(index + 1).padStart(3, "0")}`,
+    videoId,
+    index,
+    startSeconds,
+    endSeconds,
+    start: formatSubtitleTime(startSeconds),
+    end: formatSubtitleTime(endSeconds),
+    english: cue.english || cue.text || "",
+    chinese: cue.chinese || cue.translation || "",
+    note: cue.note || cue.expressionNote || "来自字幕数据，可继续补充重点表达。",
+    keywords: cue.keywords || [],
+    source
+  };
+}
+
+function normalizeSubtitleCues(cues, videoId, source = "inline") {
+  return (cues || [])
+    .map((cue, index) => normalizeSubtitleCue(cue, index, videoId, source))
+    .filter((cue) => cue.english);
+}
+
 function parseVtt(text) {
   return text
     .replace(/\r/g, "")
     .split(/\n\n+/)
     .map((block) => block.split("\n").filter(Boolean))
-    .map((lines) => {
+    .map((lines, index) => {
       const timingIndex = lines.findIndex((line) => line.includes("-->"));
       if (timingIndex === -1) return null;
 
@@ -954,8 +984,10 @@ function parseVtt(text) {
       if (!english) return null;
 
       return {
-        start: formatSubtitleTime(parseVttTimestamp(startRaw)),
-        end: formatSubtitleTime(parseVttTimestamp(endRaw)),
+        id: lines[0] && timingIndex > 0 ? lines[0] : undefined,
+        index,
+        startSeconds: parseVttTimestamp(startRaw),
+        endSeconds: parseVttTimestamp(endRaw),
         english,
         chinese,
         note: "来自本地 VTT 字幕文件，可继续补充重点表达。"
@@ -965,15 +997,16 @@ function parseVtt(text) {
 }
 
 async function loadSubtitles(video) {
-  if (!video.subtitleUrl) return video.sentences || videos[0].sentences;
+  const fallback = normalizeSubtitleCues(video.sentences || videos[0].sentences, video.id, "inline");
+  if (!video.subtitleUrl) return fallback;
 
   try {
     const response = await fetch(video.subtitleUrl);
     if (!response.ok) throw new Error("subtitle not found");
-    const subtitles = parseVtt(await response.text());
-    return subtitles.length ? subtitles : (video.sentences || videos[0].sentences);
+    const subtitles = normalizeSubtitleCues(parseVtt(await response.text()), video.id, "vtt");
+    return subtitles.length ? subtitles : fallback;
   } catch {
-    return video.sentences || videos[0].sentences;
+    return fallback;
   }
 }
 
@@ -983,7 +1016,7 @@ function getSentenceTime(sentence, index) {
 
 function renderSubtitleList(sentences) {
   return sentences.map((sentence, index) => `
-    <button class="sentence ${index === 0 ? "active" : ""}" type="button" data-sentence="${index}">
+    <button class="sentence ${index === 0 ? "active" : ""}" type="button" data-sentence="${index}" data-cue-id="${sentence.id || ""}" data-source="${sentence.source || "inline"}">
       <time>${getSentenceTime(sentence, index)}</time>
       <strong>${sentence.english}</strong>
       <span>${sentence.chinese}</span>
@@ -992,9 +1025,26 @@ function renderSubtitleList(sentences) {
   `).join("");
 }
 
+function bindSubtitleButtons(sentences, videoId) {
+  document.querySelectorAll(".sentence").forEach((sentenceButton) => {
+    sentenceButton.addEventListener("click", () => {
+      const index = Number(sentenceButton.dataset.sentence);
+      const sentence = sentences[index];
+      if (!sentence) return;
+
+      document.querySelectorAll(".sentence").forEach((item) => item.classList.remove("active"));
+      sentenceButton.classList.add("active");
+      document.querySelector("#current-sentence").textContent = `当前句：${sentence.english}`;
+      document.querySelector("#sentence-note").textContent = sentence.note || "";
+      recordSentencePractice(videoId, index);
+      updateLearnProgressView(videoId);
+    });
+  });
+}
+
 function renderLearnPage() {
   const video = getCurrentVideo();
-  const sentences = video.sentences || videos[0].sentences;
+  const sentences = normalizeSubtitleCues(video.sentences || videos[0].sentences, video.id, "inline");
   const videoPanel = document.querySelector("#learn-video");
   const sentencePanel = document.querySelector("#learn-sentences");
   const feedbackPanel = document.querySelector("#learn-feedback");
@@ -1051,18 +1101,7 @@ function renderLearnPage() {
     </div>
   `;
 
-  document.querySelectorAll(".sentence").forEach((sentenceButton) => {
-    sentenceButton.addEventListener("click", () => {
-      const index = Number(sentenceButton.dataset.sentence);
-      document.querySelectorAll(".sentence").forEach((item) => item.classList.remove("active"));
-      sentenceButton.classList.add("active");
-      document.querySelector("#current-sentence").textContent = `当前句：${sentences[index].english}`;
-      document.querySelector("#sentence-note").textContent = sentences[index].note;
-      recordSentencePractice(video.id, index);
-      updateLearnProgressView(video.id);
-    });
-  });
-
+  bindSubtitleButtons(sentences, video.id);
   bindFavoriteButtons();
   bindLearningActions(video);
   hydrateSubtitles(video);
@@ -1079,17 +1118,7 @@ async function hydrateSubtitles(video) {
   if (currentSentence) currentSentence.textContent = `当前句：${loadedSentences[0].english}`;
   if (sentenceNote) sentenceNote.textContent = loadedSentences[0].note || "";
 
-  document.querySelectorAll(".sentence").forEach((sentenceButton) => {
-    sentenceButton.addEventListener("click", () => {
-      const index = Number(sentenceButton.dataset.sentence);
-      document.querySelectorAll(".sentence").forEach((item) => item.classList.remove("active"));
-      sentenceButton.classList.add("active");
-      document.querySelector("#current-sentence").textContent = `当前句：${loadedSentences[index].english}`;
-      document.querySelector("#sentence-note").textContent = loadedSentences[index].note || "";
-      recordSentencePractice(video.id, index);
-      updateLearnProgressView(video.id);
-    });
-  });
+  bindSubtitleButtons(loadedSentences, video.id);
 }
 
 function getLearnProgressText(videoId) {

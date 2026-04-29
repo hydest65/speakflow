@@ -1,0 +1,6 @@
+.env
+data/
+processing/
+uploads/
+server.verify*.log
+*.pid

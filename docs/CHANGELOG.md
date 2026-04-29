@@ -1,5 +1,25 @@
 # SpeakFlow Changelog
 
+## Unreleased
+
+## 0.1.5 - 2026-04-29
+
+### Added
+
+- Added a Subtitle AI Lab page for video-link subtitle parsing, cue editing, learning notes, and Markdown/Word/SRT/VTT/JSON export.
+- Added a real direct-video-link processing path that can download video, extract audio with FFmpeg, transcribe with OpenAI audio transcription, and generate cue-level learning annotations.
+- Added `/api/subtitle/jobs`, `/api/subtitle/jobs/:jobId`, cue update, export, and diagnostics endpoints.
+- Added `.env.example` settings for OpenAI transcription, FFmpeg, video size limits, and max annotated cues.
+- Added `.gitignore` rules for secrets, generated job data, uploads, and processing artifacts.
+- Added a full video-subtitle-AI system design document covering architecture, database design, API design, MVP behavior, and next steps.
+- Added a subtitle data specification covering normalized cue fields, VTT mapping, and next data-source decisions.
+
+### Changed
+
+- The subtitle lab now distinguishes real direct-link processing from manual transcript mode and surfaces environment readiness in the UI.
+- Normalized inline sentence data and parsed VTT subtitles through a shared cue model before rendering the learning page.
+- Reused one subtitle click binding path for initial inline data and asynchronously loaded VTT data.
+
 ## 0.1.4 - 2026-04-28
 
 ### Changed

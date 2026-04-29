@@ -15,6 +15,259 @@
   --shadow-soft: 0 8px 22px rgba(16, 32, 51, 0.06);
 }
 
+body[data-page="subtitle-lab"] {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(48, 161, 130, 0.12), transparent 28%),
+    linear-gradient(135deg, #f8faf8 0%, #f0f5f2 45%, #f8f4ef 100%);
+}
+
+.subtitle-lab-shell {
+  display: grid;
+  gap: 18px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px 28px 32px;
+}
+
+.subtitle-lab-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 520px);
+  gap: 24px;
+  align-items: start;
+}
+
+.subtitle-lab-toolbar h1 {
+  margin: 6px 0 10px;
+  font-size: clamp(30px, 4vw, 48px);
+  letter-spacing: 0;
+}
+
+.subtitle-lab-toolbar p {
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.subtitle-job-form {
+  display: grid;
+  gap: 12px;
+}
+
+.subtitle-diagnostics {
+  margin-top: 16px;
+  border: 1px solid rgba(173, 83, 63, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 244, 240, 0.82);
+  color: #8a3b2b;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.subtitle-diagnostics.ready {
+  border-color: rgba(48, 161, 130, 0.28);
+  background: rgba(232, 248, 242, 0.86);
+  color: #136b55;
+}
+
+.subtitle-diagnostics strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.subtitle-diagnostics ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.subtitle-job-form label,
+.subtitle-cue-card label,
+.cue-note-grid label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.subtitle-job-form input,
+.subtitle-job-form textarea,
+.subtitle-cue-card textarea {
+  width: 100%;
+  border: 1px solid rgba(25, 42, 36, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  font: inherit;
+  line-height: 1.55;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.subtitle-lab-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(420px, 0.85fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.subtitle-video-panel,
+.subtitle-editor-panel {
+  min-height: 640px;
+}
+
+.subtitle-video-frame {
+  position: sticky;
+  top: 94px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  min-height: 420px;
+  border-radius: 8px;
+  background: #111a17;
+}
+
+.subtitle-video-frame video {
+  display: none;
+  width: 100%;
+  max-height: 70vh;
+  background: #111a17;
+}
+
+.empty-video {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 15px;
+}
+
+.subtitle-export-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.subtitle-export-row button {
+  border: 1px solid rgba(25, 42, 36, 0.14);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  padding: 10px 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.subtitle-editor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.subtitle-editor-head h2 {
+  margin: 4px 0 0;
+  font-size: 24px;
+}
+
+#subtitle-job-status {
+  border-radius: 999px;
+  background: rgba(48, 161, 130, 0.12);
+  color: #136b55;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.subtitle-cue-list {
+  display: grid;
+  gap: 14px;
+  max-height: calc(100vh - 210px);
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.subtitle-empty-state {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.subtitle-cue-card {
+  display: grid;
+  gap: 12px;
+  border: 1px solid rgba(25, 42, 36, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 14px;
+}
+
+.cue-time {
+  justify-self: start;
+  border: 0;
+  border-radius: 999px;
+  background: #173f35;
+  color: #fff;
+  padding: 7px 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cue-note-grid {
+  display: grid;
+  gap: 11px;
+}
+
+.cue-note-grid strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.vocab-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vocab-tags span {
+  border-radius: 8px;
+  background: rgba(238, 180, 85, 0.15);
+  color: #6d4a12;
+  padding: 7px 9px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.vocab-tags small {
+  display: block;
+  margin-top: 3px;
+  color: rgba(109, 74, 18, 0.72);
+  font-weight: 600;
+}
+
+.save-cue {
+  justify-self: end;
+}
+
+@media (max-width: 980px) {
+  .subtitle-lab-toolbar,
+  .subtitle-lab-workbench {
+    grid-template-columns: 1fr;
+  }
+
+  .subtitle-video-frame {
+    position: static;
+    min-height: 260px;
+  }
+
+  .subtitle-cue-list {
+    max-height: none;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
