@@ -16,9 +16,10 @@
 ## 2. 当前页面
 
 ```text
-index.html       视频库
+index.html       安静首页入口
+library.html     视频库
 favorites.html   收藏夹
-tips.html        Tips
+tips.html        学习卡片
 ai.html          AI陪练
 pricing.html     会员 + 学习记录
 learn.html       视频跟读训练页
@@ -34,6 +35,7 @@ references/      轻量项目记忆和收尾流程
 
 ## 3. 页面职责
 
+首页负责安静学习入口、学员进度、学习成就、打卡动机和文字型新上视频信息，不承载视频窗口或视频网格。
 视频库负责今日学习状态、今日任务、推荐视频、视频筛选和视频卡片。
 
 收藏夹负责展示已收藏视频、进入对应学习页，并提供空状态引导。
@@ -100,7 +102,7 @@ type Sentence = {
 
 ## 6. 0.1.4 技术状态补充
 
-- `videos` 数据当前通过 `tedLanguageVideos` 覆盖首页素材，用于展示 8 个 TED 语言学习视频。
+- `videos` 数据当前通过 `tedLanguageVideos` 覆盖视频库素材，用于展示 8 个 TED 语言学习视频。
 - 学习页支持 `subtitleUrl` 字段，并通过 `fetch()` 加载本地 `.vtt` 文件。
 - `parseVtt()` 会将 WebVTT cue 转换为 `{ start, end, english, chinese, note }` 字幕数据。
 - `hydrateSubtitles()` 会在学习页初始渲染后异步替换动态字幕栏；加载失败时回退到内置 `sentences`。

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpeakVlog Test Page</title>
+  <link rel="stylesheet" href="speakvlog-test.css">
+</head>
+<body>
+  <header class="app-topbar">
+    <a class="brand" href="style-lab.html" aria-label="SpeakVlog 风格页">
+      <span class="brand-mark">S</span>
+      <span class="brand-copy">
+        <strong>SpeakVlog</strong>
+        <small>Real Video Speaking Lab</small>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="主导航">
+      <a class="active" href="#">学习台</a>
+      <a href="#">视频库</a>
+      <a href="#">收藏夹</a>
+      <a href="#">AI 陪练</a>
+      <a href="#">会员</a>
+    </nav>
+    <button class="icon-button" type="button" aria-label="用户中心">LX</button>
+  </header>
+
+  <main class="workspace">
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <span class="pill">Today's Speaking Mission</span>
+        <h1>今天用一段真实 Vlog，练会自然开口。</h1>
+        <p>先听懂一句，再跟读一句。SpeakVlog 会把真实视频拆成可训练的字幕、表达卡片和 AI 反馈。</p>
+        <div class="hero-actions">
+          <button class="button primary" type="button">开始今日训练</button>
+          <button class="button secondary" type="button">查看学习报告</button>
+        </div>
+      </div>
+      <div class="today-card">
+        <div class="video-preview">
+          <div class="video-toolbar"><span></span><span></span><span></span></div>
+          <div class="video-title">
+            <span class="play"></span>
+            <div>
+              <strong>Morning routine before work</strong>
+              <small>Vlog · 04:32 · Beginner</small>
+            </div>
+          </div>
+        </div>
+        <div class="today-meta">
+          <div><strong>12</strong><span>字幕句</span></div>
+          <div><strong>86</strong><span>目标评分</span></div>
+          <div><strong>8m</strong><span>预计时间</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <aside class="left-rail">
+        <section class="card">
+          <div class="card-head">
+            <span class="pill">Progress</span>
+            <strong>本周节奏</strong>
+          </div>
+          <div class="streak">
+            <span>7</span>
+            <p>连续学习天数</p>
+          </div>
+          <div class="week-bars" aria-label="本周学习柱状图">
+            <span style="height: 42%"></span>
+            <span style="height: 68%"></span>
+            <span style="height: 54%"></span>
+            <span style="height: 88%"></span>
+            <span style="height: 72%"></span>
+            <span style="height: 45%"></span>
+            <span style="height: 61%"></span>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <span class="pill">Daily Task</span>
+            <strong>今日任务</strong>
+          </div>
+          <ul class="task-list">
+            <li><span></span>精听 3 个关键句</li>
+            <li><span></span>完成 1 次跟读录音</li>
+            <li><span></span>保存 2 个地道表达</li>
+            <li><span></span>拿到一次 AI 评分</li>
+          </ul>
+        </section>
+      </aside>
+
+      <section class="learning-card">
+        <div class="learning-head">
+          <div>
+            <span class="pill">Learning Workbench</span>
+            <h2>一句一句把真实英语说顺</h2>
+          </div>
+          <button class="button primary small" type="button">进入学习页</button>
+        </div>
+        <div class="learning-layout">
+          <div class="player">
+            <div class="player-screen">
+              <span>Video</span>
+            </div>
+            <div class="expression-strip">
+              <span>order coffee</span>
+              <span>to go</span>
+              <span>before work</span>
+            </div>
+          </div>
+          <div class="subtitle-list">
+            <button class="subtitle active" type="button">
+              <strong>00:12</strong>
+              <span>Could I get an iced latte to go?</span>
+              <small>我可以要一杯外带冰拿铁吗？</small>
+            </button>
+            <button class="subtitle" type="button">
+              <strong>00:18</strong>
+              <span>Would you like anything else?</span>
+              <small>还需要其他的吗？</small>
+            </button>
+            <button class="subtitle" type="button">
+              <strong>00:24</strong>
+              <span>That's all for now, thank you.</span>
+              <small>目前就这些，谢谢。</small>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="right-rail">
+        <section class="card coach-card">
+          <span class="pill">AI Coach</span>
+          <div class="score">86</div>
+          <p>语速自然，句尾可以更轻一点。下一轮重点练 “to go” 的连读。</p>
+          <button class="button secondary full" type="button">重新跟读</button>
+        </section>
+
+        <section class="card pro-card">
+          <span class="pill">Pro Plan</span>
+          <h3>解锁真实视频训练库</h3>
+          <p>无限 AI 评分、字幕精读卡片、学习报告和收藏复习。</p>
+          <button class="button primary full" type="button">查看会员</button>
+        </section>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

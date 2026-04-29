@@ -716,6 +716,54 @@ function renderTodayPick() {
   `;
 }
 
+function createHomeVideoRow(video) {
+  const sentenceCount = (video.sentences || videos[0].sentences || []).length;
+  return `
+    <article class="calm-new-item">
+      <div>
+        <span>${video.source} · ${video.difficultyLabel} · ${video.durationMinutes} 分钟</span>
+        <h3>${video.title}</h3>
+        <p>${video.description}</p>
+      </div>
+      <a href="learn.html?video=${video.id}">${sentenceCount} 句训练</a>
+    </article>
+  `;
+}
+
+function renderHomePage() {
+  const pick = videos.find((video) => video.featured) || videos[0];
+  const today = getTodayProgress();
+  const averageScore = getAverageScore();
+
+  const startLink = document.querySelector("#home-start-link");
+  const featuredLink = document.querySelector("#home-featured-link");
+  if (startLink) startLink.href = `learn.html?video=${pick.id}`;
+  if (featuredLink) featuredLink.href = `learn.html?video=${pick.id}`;
+
+  const featuredTitle = document.querySelector("#home-featured-title");
+  if (featuredTitle) featuredTitle.textContent = pick.title;
+
+  const featuredSummary = document.querySelector("#home-featured-summary");
+  if (featuredSummary) {
+    featuredSummary.textContent = `${pick.source} · ${pick.difficultyLabel} · ${pick.durationMinutes} 分钟。适合今天完成一次安静的听说训练。`;
+  }
+
+  const stats = document.querySelector("#home-student-stats");
+  if (stats) {
+    stats.innerHTML = `
+      <div><strong>${getStreakDays()} 天</strong><span>当前连续学习</span></div>
+      <div><strong>${today.sentenceCount} 句</strong><span>今天已经练过的句子</span></div>
+      <div><strong>${averageScore || "--"}</strong><span>最近一次 AI 参考评分</span></div>
+    `;
+  }
+
+  const newVideos = document.querySelector("#home-new-videos");
+  if (newVideos) {
+    const latestVideos = [...videos].slice(0, 4);
+    newVideos.innerHTML = latestVideos.map(createHomeVideoRow).join("");
+  }
+}
+
 function getFilters() {
   const filters = {};
   document.querySelectorAll("[data-filter]").forEach((select) => {
@@ -739,10 +787,14 @@ function renderLibrary() {
   if (!grid) return;
 
   const searchText = getLibrarySearchText();
-  const filteredVideos = videos.filter((video) => matchesFilters(video, getFilters()) && matchesSearch(video, searchText));
+  const filters = getFilters();
+  const filteredVideos = videos.filter((video) => matchesFilters(video, filters) && matchesSearch(video, searchText));
+  const isCalmHome = document.body.classList.contains("speakvlog-home");
+  const hasActiveFilter = searchText || Object.values(filters).some((value) => value !== "all");
+  const visibleVideos = isCalmHome && !hasActiveFilter ? filteredVideos.slice(0, 3) : filteredVideos;
   updateLibrarySummary(filteredVideos);
-  grid.innerHTML = filteredVideos.length
-    ? filteredVideos.map((video) => createVideoCard(video)).join("")
+  grid.innerHTML = visibleVideos.length
+    ? visibleVideos.map((video) => createVideoCard(video)).join("")
     : `<article class="video-card empty-state"><div class="card-body"><h2>没有找到合适的视频</h2><p>换一个关键词或筛选条件，继续找今天适合训练的片段。</p></div></article>`;
 
   document.querySelectorAll("[data-filter]").forEach((select) => {
@@ -760,7 +812,7 @@ function renderFavorites() {
   const favoriteVideos = videos.filter((video) => getFavorites().includes(video.id));
   grid.innerHTML = favoriteVideos.length
     ? favoriteVideos.map((video) => createVideoCard(video, { context: `已收藏 · ${video.topicLabel} · 适合反复训练` })).join("")
-    : `<article class="video-card empty-state"><div class="card-body"><h2>还没有收藏视频</h2><p>回到视频库，点击视频卡片上的“收藏”，这里会自动显示你的复习清单。</p><a class="button secondary" href="index.html">浏览视频</a></div></article>`;
+    : `<article class="video-card empty-state"><div class="card-body"><h2>还没有收藏视频</h2><p>回到视频库，点击视频卡片上的“收藏”，这里会自动显示你的复习清单。</p><a class="button secondary" href="library.html">浏览视频</a></div></article>`;
   bindFavoriteButtons();
 }
 
@@ -1485,6 +1537,7 @@ function bindTipsSearch() {
 
 function renderCurrentPage() {
   const page = document.body.dataset.page;
+  if (page === "home") renderHomePage();
   if (page === "library") renderLibrary();
   if (page === "favorites") renderFavorites();
   if (page === "learn") renderLearnPage();

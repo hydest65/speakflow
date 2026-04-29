@@ -24,11 +24,12 @@ SpeakFlow 当前采用现代 SaaS 工具型工作台风格，不沿用传统培�
 
 顶部导航固定顺序：
 
-1. 视频库
-2. 收藏夹
-3. Tips
-4. AI陪练
-5. 会员
+1. 首页
+2. 视频库
+3. 收藏夹
+4. 学习卡片
+5. AI陪练
+6. 学员信息 / 会员
 
 导航使用紧凑 segmented nav。当前页使用深蓝到亮蓝渐变实底，非当前页使用浅灰蓝底。
 
@@ -61,7 +62,8 @@ SpeakFlow 当前采用现代 SaaS 工具型工作台风格，不沿用传统培�
 
 ## 5. 页面规则
 
-视频库是默认入口，应像学习资源工作台，优先展示状态、任务、推荐、筛选和视频卡片。
+首页是默认入口，应表达安静、平和、低压力的学习氛围，优先展示学习入口、进度、成就、打卡动力和少量文字型新上内容。
+视频库是分支页面，应像学习资源工作台，承载搜索、筛选和视频卡片。
 
 收藏夹保持轻量，只展示收藏视频。
 
@@ -75,9 +77,8 @@ AI陪练使用对话工作台布局：左侧场景，中间对话，右侧评分
 
 ## 6. 0.1.4 视觉补充
 
-- 首页 TED 视频卡使用静态封面，不显示播放三角，避免让用户误以为可在卡片内播放。
-- 首页封面显示讲演人、主题词、时长和卡通式讲演人头像；头像不使用真实人物照片。
-- 视频库桌面端一行显示 4 个视频预览窗口。
+- 首页不显示 TED 视频卡、视频窗口、视频缩略图或播放控件。
+- 视频库桌面端可以显示视频卡片；首页只显示文字型新上内容。
 - 学习页当前按参考截图方向改为双栏沉浸式布局：左侧视频和简介，右侧动态字幕。
 - 学习页隐藏全局顶部导航，减少沉浸学习时的干扰。
 - 动态字幕栏应保持可滚动、卡片式、行距紧凑，并预留收藏星标和自动滚动控制。
@@ -94,3 +95,58 @@ AI陪练使用对话工作台布局：左侧场景，中间对话，右侧评分
 - Keep the video on the left, scrollable subtitles on the right, and close-reading cards below the video.
 - Reduce title and panel chrome sizes so video, subtitles, and cards get most of the viewport.
 - Avoid decorative sections on learning pages; controls should support repeated study rather than marketing presentation.
+
+## 9. SaaS style selection board
+
+`style-lab.html` is the current visual selection board for SpeakVlog/SpeakFlow.
+Use it to decide the preferred product feeling before applying broad UI changes
+to the main pages.
+
+Current preferred direction:
+
+- Modern SaaS product language.
+- White or near-white background: `#F8FAFC`.
+- White cards with subtle shadow:
+  `0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)`.
+- Blue primary color: `#3B82F6`.
+- Indigo secondary accent: `#6366F1`.
+- Slate gray support text: `#94A3B8` or nearby accessible gray.
+- Primary buttons use a blue-to-indigo gradient with a restrained glow shadow.
+- Tags use a light blue background and blue text.
+- Rounded corners stay around 12px to 16px for cards and controls.
+
+Decision questions:
+
+- Would the founder want to open this interface every day?
+- Does it feel like an adult learning product, not a childish training-school page?
+- Are video, subtitles, shadowing, AI feedback, and membership value immediately clear?
+- Does the interface feel trustworthy enough to charge for?
+
+## 10. Homepage and branch-page information architecture
+
+The homepage should create a quiet, calm, low-pressure learning mood. It should
+not behave like the video library.
+
+Homepage rules:
+
+- No video player, video window, embedded video frame, or large video preview on the homepage.
+- First screen focuses on a calm learning invitation, one primary "start learning" path, and one secondary path to browse videos.
+- Show lightweight learner information, daily rhythm, and a small text-only list of new lessons.
+- Use whitespace, short copy, soft borders, and restrained blue accents.
+
+Branch-page rules:
+
+- `library.html` owns the full video library, filters, video cards, and search.
+- `favorites.html` owns saved videos.
+- `tips.html` owns learning cards for words, phrases, and natural expressions.
+- `learn.html` owns the immersive video/subtitle/shadowing experience.
+- `ai.html` owns scenario conversation practice.
+
+Selected homepage layout:
+
+- Use Option B, the calm split entrance.
+- Left side owns the quiet learning invitation and primary start button.
+- Right side owns learner progress, weekly goal, and small achievement data.
+- Below the first screen, show only three small cards: today's lesson, one tip, and one check-in motivation.
+- New lessons appear as text-only rows, with no video window or thumbnail preview.
+- The homepage navigation should stay focused on branch pages: video library, favorites, learning cards, and learner information.

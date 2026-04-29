@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Changed
+
+- Reorganized the product entry so `index.html` is now a quiet, low-pressure learning homepage instead of the full video library.
+- Added `library.html` as the dedicated video-library branch page with the existing search, filters, video cards, favorites, and learning entry behavior.
+- Selected the Option B homepage layout: calm split entrance with a primary start path on the left and learner progress/achievement information on the right.
+- Updated navigation across the main branch pages to separate 首页, 视频库, 收藏夹, 学习卡片, AI 陪练, and 学员信息/会员.
+- Kept the homepage text-only: no video player, iframe, video grid, filters, or video preview window on the first page.
+
 ## 0.2.0 - 2026-04-29
 
 ### Changed
