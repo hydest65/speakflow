@@ -87,3 +87,10 @@ AI陪练使用对话工作台布局：左侧场景，中间对话，右侧评分
 - Keep the first screen focused on input, environment readiness, video preview, subtitle list, and export actions.
 - Use compact panels with 8px radius, clear status chips, and editable text areas that do not shift layout while typing.
 - The environment diagnostics block should use warm warning colors when setup is incomplete and green confirmation when real direct-link parsing is ready.
+
+## 8. 0.2.0 data learning page layout rules
+
+- Until the final visual style is chosen, keep `api-learn.html` utilitarian and information-dense.
+- Keep the video on the left, scrollable subtitles on the right, and close-reading cards below the video.
+- Reduce title and panel chrome sizes so video, subtitles, and cards get most of the viewport.
+- Avoid decorative sections on learning pages; controls should support repeated study rather than marketing presentation.

@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## 0.2.0 - 2026-04-29
+
+### Changed
+
+- Adopted a production-shaped video-learning architecture layer inspired by mature subtitle-learning products, while keeping UI styling undecided.
+- Added local API compatibility for videos, subtitles, subtitle highlights, close-reading cards, and user video progress.
+- Added `api-learn.html` as the first data-driven learning page that consumes the new video, subtitle, close-reading, and progress APIs.
+- Updated the data-driven learning page layout so the video stays on the left, scrollable subtitles stay on the right, and close-reading cards sit below the video.
+- Reduced learning-page title and panel chrome sizes to reserve more space for useful study content.
+- Made subtitle learning notes optional: the Subtitle AI Lab now defaults to manual note templates and only calls MiniMax when the user enables AI notes.
+- Separated ASR requirements from learning-note generation so video transcription and AI annotations can be costed and configured independently.
+
 ## 0.1.5 - 2026-04-29
 
 ### Added

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据驱动学习页 | SpeakFlow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="api-learn">
+  <header class="topbar">
+    <a class="logo" href="index.html" aria-label="SpeakFlow 首页">
+      <span class="logo-mark"><span></span></span>
+      <span class="logo-type"><strong>SpeakFlow</strong><small>Real Video Speaking Lab</small></span>
+    </a>
+    <nav class="pill-nav" aria-label="主导航">
+      <a href="index.html">视频库</a>
+      <a class="active" href="api-learn.html">数据学习页</a>
+      <a href="subtitle-lab.html">字幕批注</a>
+      <a href="ai.html">AI 陪练</a>
+      <a href="pricing.html">会员</a>
+    </nav>
+  </header>
+
+  <main class="api-learn-shell">
+    <section class="panel api-video-panel">
+      <div class="api-learn-head">
+        <div>
+          <p class="eyebrow">API Learning Page</p>
+          <h1 id="api-video-title">加载中...</h1>
+          <p id="api-video-description">正在读取视频、字幕、精读卡片和学习进度。</p>
+        </div>
+        <span id="api-progress-chip">进度 --</span>
+      </div>
+      <div class="api-video-frame">
+        <video id="api-video" controls preload="metadata"></video>
+      </div>
+    </section>
+
+    <section class="panel api-subtitle-panel">
+      <div class="api-section-head">
+        <div>
+          <p class="eyebrow">Subtitles</p>
+          <h2>时间轴字幕</h2>
+        </div>
+      </div>
+      <div id="api-subtitles" class="api-subtitle-list"></div>
+    </section>
+
+    <aside class="panel api-cards-panel">
+      <div class="api-section-head">
+        <div>
+          <p class="eyebrow">Close Reading</p>
+          <h2>精读卡片</h2>
+        </div>
+      </div>
+      <div class="api-card-tabs">
+        <button class="active" type="button" data-card-tab="word_cards">单词</button>
+        <button type="button" data-card-tab="phrase_cards">短语</button>
+        <button type="button" data-card-tab="expression_cards">表达</button>
+      </div>
+      <div id="api-card-list" class="api-card-list"></div>
+    </aside>
+  </main>
+
+  <script src="api-learn.js"></script>
+</body>
+</html>

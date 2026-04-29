@@ -140,3 +140,28 @@ larger subtitle batches are imported.
 - Manual transcript mode remains available for fast UI testing and for videos where the user already has an English transcript.
 - Generated job data is stored in local JSON for the MVP. Production should move this to PostgreSQL and queue long-running jobs with BullMQ or Celery.
 - `docs/VIDEO_SUBTITLE_AI_SYSTEM.md` is the detailed architecture source for database tables, API shape, and the migration path to a production subtitle pipeline.
+## 9. 0.2.0 target video-learning architecture layer
+
+SpeakFlow now has a production-shaped API layer based on separate learning resources:
+
+- `videos`: video metadata, difficulty, duration, display order, thumbnail, and future Tencent/Cloudflare delivery fields.
+- `subtitles`: timestamped English/Chinese cues.
+- `subtitle_highlights`: precomputed word and phrase highlight matches.
+- `word_cards`, `phrase_cards`, `expression_cards`: close-reading learning cards connected to videos and subtitles.
+- `user_video_progress`: per-user watch position, max progress, watch duration, and completion state.
+
+Current MVP endpoints:
+
+- `GET /api/videos`
+- `GET /api/videos/:videoId/detail`
+- `GET /api/videos/:videoId/subtitles`
+- `GET /api/videos/:videoId/subtitle-highlights`
+- `GET /api/learning/videos/:videoId/close-reading`
+- `GET /api/user/video-progress/:videoId`
+- `POST /api/user/video-progress`
+
+For now these endpoints use `data/app-data.json` with seed data when the file does not exist. The route names and payloads are intentionally close to the intended PostgreSQL/Supabase data model so the UI can be redesigned later without changing the backend contract.
+
+`api-learn.html` is the first page consuming this API layer. It loads video detail, renders timestamped subtitles, displays close-reading cards, and writes video progress back through `/api/user/video-progress`.
+
+Detailed migration notes live in `docs/SPEAKFLOW_TARGET_ARCHITECTURE.md`.

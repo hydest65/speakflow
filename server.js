@@ -28,6 +28,7 @@ const ffmpegPath = process.env.FFMPEG_PATH || "ffmpeg";
 const maxVideoBytes = Number(process.env.VIDEO_MAX_BYTES || 120 * 1024 * 1024);
 const dataDir = join(rootDir, "data");
 const subtitleJobsPath = join(dataDir, "subtitle-jobs.json");
+const appDataPath = join(dataDir, "app-data.json");
 const processingDir = join(rootDir, "processing");
 
 const contentTypes = {
@@ -75,6 +76,140 @@ async function saveSubtitleJobs(store) {
   await writeFile(subtitleJobsPath, JSON.stringify(store, null, 2), "utf8");
 }
 
+function createSeedAppData() {
+  const now = new Date().toISOString();
+  const videoId = "demo-money-phrases";
+  const subtitles = [
+    {
+      id: "sub-1",
+      video_id: videoId,
+      start_time: 0,
+      end_time: 3.2,
+      english_text: "In England, we don't always say pounds.",
+      chinese_text: "在英国，人们不总是说 pounds。"
+    },
+    {
+      id: "sub-2",
+      video_id: videoId,
+      start_time: 3.2,
+      end_time: 6.8,
+      english_text: "You might hear quid, fiver, or tenner in daily conversation.",
+      chinese_text: "日常对话里你可能会听到 quid、fiver 或 tenner。"
+    },
+    {
+      id: "sub-3",
+      video_id: videoId,
+      start_time: 6.8,
+      end_time: 10.4,
+      english_text: "These words sound more natural when people talk about money.",
+      chinese_text: "人们聊钱时，这些词听起来更自然。"
+    }
+  ];
+
+  return {
+    videos: [
+      {
+        id: videoId,
+        title: "Money words in real English",
+        description: "A short demo video record shaped like the future SpeakFlow production data model.",
+        thumbnail_url: "",
+        thumbnail_url_cn: "",
+        cloudflare_stream_id: null,
+        tencent_cloud_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        source_url: "",
+        status: "published",
+        difficulty: "beginner",
+        duration: 10,
+        display_order: 100,
+        created_at: now
+      }
+    ],
+    subtitles,
+    subtitle_highlights: [
+      {
+        id: "hl-1",
+        subtitle_id: "sub-2",
+        highlighted_html: "You might hear <span class=\"word-highlight\">quid</span>, <span class=\"word-highlight\">fiver</span>, or <span class=\"word-highlight\">tenner</span> in daily conversation.",
+        word_matches: [
+          { word_card_id: "word-quid", lemma: "quid", matched_text: "quid", start_pos: 15, end_pos: 19 },
+          { word_card_id: "word-fiver", lemma: "fiver", matched_text: "fiver", start_pos: 21, end_pos: 26 },
+          { word_card_id: "word-tenner", lemma: "tenner", matched_text: "tenner", start_pos: 31, end_pos: 37 }
+        ],
+        phrase_matches: [],
+        created_at: now,
+        updated_at: now
+      }
+    ],
+    word_cards: [
+      {
+        id: "word-quid",
+        video_id: videoId,
+        word: "quid",
+        phonetic: "/kwid/",
+        part_of_speech: "noun",
+        chinese_definition: "英镑，英国口语表达",
+        english_definition: "An informal British word for one pound.",
+        example_from_video: "You might hear quid in daily conversation.",
+        example_translation: "日常对话里你可能会听到 quid。",
+        subtitle_id: "sub-2",
+        first_appearance_time: 3.2,
+        difficulty_level: "beginner",
+        frequency_rank: 1
+      }
+    ],
+    phrase_cards: [
+      {
+        id: "phrase-daily-conversation",
+        video_id: videoId,
+        phrase: "daily conversation",
+        phonetic: "",
+        chinese_definition: "日常对话",
+        synonyms: ["everyday talk"],
+        context: "You might hear quid, fiver, or tenner in daily conversation.",
+        context_translation: "日常对话里你可能会听到 quid、fiver 或 tenner。",
+        subtitle_id: "sub-2",
+        first_appearance_time: 3.2,
+        difficulty_level: "beginner"
+      }
+    ],
+    expression_cards: [
+      {
+        id: "expr-sound-natural",
+        video_id: videoId,
+        expression: "sound more natural",
+        chinese_definition: "听起来更自然",
+        expression_explanation: "Used when describing a phrase that native speakers would normally use.",
+        context: "These words sound more natural when people talk about money.",
+        context_translation: "人们聊钱时，这些词听起来更自然。",
+        subtitle_id: "sub-3",
+        first_appearance_time: 6.8,
+        formality_level: "neutral"
+      }
+    ],
+    user_video_progress: [],
+    user_learning_progress: [],
+    user_learning_calendar: []
+  };
+}
+
+async function loadAppData() {
+  try {
+    const raw = await readFile(appDataPath, "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return createSeedAppData();
+  }
+}
+
+async function saveAppData(store) {
+  await mkdir(dataDir, { recursive: true });
+  await writeFile(appDataPath, JSON.stringify(store, null, 2), "utf8");
+}
+
+function getDemoUserId(request) {
+  return request.headers["x-speakflow-user-id"] || "demo-user";
+}
+
 function secondsToSrtTime(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -111,9 +246,19 @@ function splitTranscript(text) {
         startSeconds,
         endSeconds,
         text: line,
-        note: buildSubtitleNote(line)
+        note: buildManualSubtitleNote()
       };
     });
+}
+
+function buildManualSubtitleNote() {
+  return {
+    translation: "",
+    vocabulary: [],
+    grammar: "",
+    speaking: "",
+    shadowing: ""
+  };
 }
 
 function buildSubtitleNote(text) {
@@ -321,8 +466,19 @@ function parseJsonObject(raw) {
 
 function buildAnnotationFallback(text) {
   return {
-    ...buildSubtitleNote(text),
-    translation: "AI 批注生成失败，请手动补充中文翻译。"
+    ...buildManualSubtitleNote(),
+    translation: "AI 备注生成失败，请手动补充。"
+  };
+}
+
+function normalizeAnnotation(raw, text) {
+  const fallback = buildSubtitleNote(text);
+  return {
+    translation: raw.translation || fallback.translation || "",
+    vocabulary: Array.isArray(raw.vocabulary) ? raw.vocabulary : fallback.vocabulary,
+    grammar: raw.grammar || fallback.grammar || "",
+    speaking: raw.speaking || fallback.speaking || "",
+    shadowing: raw.shadowing || fallback.shadowing || ""
   };
 }
 
@@ -358,14 +514,65 @@ async function callOpenAIAnnotation(text) {
   }
 
   const data = await apiResponse.json();
-  return parseJsonObject(data.output_text || "");
+  return normalizeAnnotation(parseJsonObject(data.output_text || ""), text);
+}
+
+async function callMiniMaxAnnotation(text) {
+  if (!process.env.MINIMAX_API_KEY) {
+    throw new Error("缺少 MINIMAX_API_KEY，无法生成 MiniMax 学习备注。");
+  }
+
+  const prompt = [
+    "你是面向中国成人学习者的英语视频字幕学习助手。",
+    "请只返回严格 JSON，不要 Markdown。",
+    "JSON keys: translation, vocabulary, grammar, speaking, shadowing.",
+    "vocabulary 是数组，每项包含 word, meaning, example。",
+    "translation/grammar/speaking/shadowing 使用中文，务必简洁实用。",
+    `字幕：${text}`
+  ].join("\n");
+
+  const apiResponse = await fetch("https://api.minimax.io/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.MINIMAX_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: minimaxModel,
+      messages: [
+        { role: "system", content: "Return only valid JSON." },
+        { role: "user", content: prompt }
+      ],
+      temperature: 0.2,
+      max_tokens: 600,
+      stream: false
+    })
+  });
+
+  if (!apiResponse.ok) {
+    const detail = await apiResponse.text();
+    throw new Error(`MiniMax 备注失败：${detail.slice(0, 600)}`);
+  }
+
+  const data = await apiResponse.json();
+  const output = data.choices?.[0]?.message?.content || "";
+  return normalizeAnnotation(parseJsonObject(output), text);
+}
+
+async function callAnnotationProvider(text) {
+  if (aiProvider === "openai") return callOpenAIAnnotation(text);
+  return callMiniMaxAnnotation(text);
+}
+
+function attachManualNotes(cues) {
+  return cues.map((cue) => ({ ...cue, note: cue.note || buildManualSubtitleNote() }));
 }
 
 async function annotateCues(cues) {
   const annotated = [];
   for (const cue of cues.slice(0, Number(process.env.SUBTITLE_MAX_CUES || 40))) {
     try {
-      annotated.push({ ...cue, note: await callOpenAIAnnotation(cue.text) });
+      annotated.push({ ...cue, note: await callAnnotationProvider(cue.text) });
     } catch (error) {
       console.log("[subtitle-ai] annotation fallback", error.message);
       annotated.push({ ...cue, note: buildAnnotationFallback(cue.text) });
@@ -374,12 +581,12 @@ async function annotateCues(cues) {
   return annotated;
 }
 
-async function processRealVideoUrl(payload, jobId) {
+async function processRealVideoUrl(payload, jobId, useAiNotes = false) {
   const { videoPath, jobDir } = await downloadVideoFile(payload.sourceUrl, jobId);
   const audioPath = await extractAudio(videoPath, jobDir);
   const transcription = await transcribeAudio(audioPath);
   const cues = normalizeTranscriptionCues(transcription);
-  return annotateCues(cues);
+  return useAiNotes ? annotateCues(cues) : attachManualNotes(cues);
 }
 
 function serializeSubtitleJob(job, format) {
@@ -443,6 +650,100 @@ function exportContentType(format) {
   return "text/markdown; charset=utf-8";
 }
 
+async function handleVideosIndex(response) {
+  const store = await loadAppData();
+  const items = [...(store.videos || [])]
+    .filter((video) => video.status === "published")
+    .sort((a, b) => Number(b.display_order || 0) - Number(a.display_order || 0));
+  sendJson(response, 200, { items, total: items.length });
+}
+
+async function handleVideoDetail(response, videoId) {
+  const store = await loadAppData();
+  const video = (store.videos || []).find((item) => item.id === videoId && item.status === "published");
+  if (!video) {
+    sendJson(response, 404, { error: "Video not found" });
+    return;
+  }
+  const subtitles = (store.subtitles || [])
+    .filter((item) => item.video_id === videoId)
+    .sort((a, b) => Number(a.start_time) - Number(b.start_time));
+  sendJson(response, 200, { video, subtitles });
+}
+
+async function handleVideoSubtitles(response, videoId) {
+  const store = await loadAppData();
+  const subtitles = (store.subtitles || [])
+    .filter((item) => item.video_id === videoId)
+    .sort((a, b) => Number(a.start_time) - Number(b.start_time));
+  sendJson(response, 200, subtitles);
+}
+
+async function handleVideoSubtitleHighlights(response, videoId) {
+  const store = await loadAppData();
+  const subtitleIds = new Set((store.subtitles || [])
+    .filter((item) => item.video_id === videoId)
+    .map((item) => item.id));
+  const highlights = (store.subtitle_highlights || [])
+    .filter((item) => subtitleIds.has(item.subtitle_id));
+  sendJson(response, 200, highlights);
+}
+
+async function handleCloseReading(response, videoId) {
+  const store = await loadAppData();
+  sendJson(response, 200, {
+    word_cards: (store.word_cards || []).filter((item) => item.video_id === videoId),
+    phrase_cards: (store.phrase_cards || []).filter((item) => item.video_id === videoId),
+    expression_cards: (store.expression_cards || []).filter((item) => item.video_id === videoId)
+  });
+}
+
+async function handleGetVideoProgress(request, response, videoId) {
+  const store = await loadAppData();
+  const userId = getDemoUserId(request);
+  const progress = (store.user_video_progress || [])
+    .find((item) => item.user_id === userId && item.video_id === videoId);
+  sendJson(response, 200, progress || {
+    user_id: userId,
+    video_id: videoId,
+    last_position: 0,
+    max_progress: 0,
+    watch_duration: 0,
+    is_completed: false,
+    updated_at: null
+  });
+}
+
+async function handleUpsertVideoProgress(request, response) {
+  const payload = await readRequestJson(request);
+  const store = await loadAppData();
+  const userId = payload.user_id || getDemoUserId(request);
+  const videoId = payload.video_id;
+  if (!videoId) {
+    sendJson(response, 400, { error: "video_id is required" });
+    return;
+  }
+
+  const next = {
+    user_id: userId,
+    video_id: videoId,
+    last_position: Number(payload.last_position || 0),
+    max_progress: Number(payload.max_progress || payload.last_position || 0),
+    watch_duration: Number(payload.watch_duration || 0),
+    is_completed: Boolean(payload.is_completed),
+    updated_at: new Date().toISOString()
+  };
+
+  const list = store.user_video_progress || [];
+  const index = list.findIndex((item) => item.user_id === userId && item.video_id === videoId);
+  if (index >= 0) list[index] = { ...list[index], ...next };
+  else list.push(next);
+  store.user_video_progress = list;
+
+  await saveAppData(store);
+  sendJson(response, 200, { success: true, progress: next });
+}
+
 async function handleCreateSubtitleJob(request, response) {
   try {
     const payload = await readRequestJson(request);
@@ -450,6 +751,7 @@ async function handleCreateSubtitleJob(request, response) {
     const now = new Date().toISOString();
     const jobId = `job-${Date.now()}`;
     const shouldProcessRealUrl = payload.sourceType === "url" && payload.sourceUrl && !(payload.transcriptText || "").trim();
+    const useAiNotes = Boolean(payload.useAiNotes);
     const job = {
       id: jobId,
       title: payload.title || "SpeakFlow 字幕批注任务",
@@ -458,18 +760,22 @@ async function handleCreateSubtitleJob(request, response) {
       sourceUrl: payload.sourceUrl || "",
       status: "processing",
       mode: shouldProcessRealUrl ? "real-url" : "manual-transcript",
+      annotationMode: useAiNotes ? aiProvider : "manual",
       pipeline: shouldProcessRealUrl
-        ? ["download_video", "extract_audio", "transcribe", "segment", "annotate"]
-        : ["manual_transcript", "segment", "annotate"],
+        ? ["download_video", "extract_audio", "transcribe", "segment", useAiNotes ? "ai_annotate" : "manual_notes"]
+        : ["manual_transcript", "segment", useAiNotes ? "ai_annotate" : "manual_notes"],
       createdAt: now,
       updatedAt: now,
       cues: []
     };
 
     try {
-      job.cues = shouldProcessRealUrl
-        ? await processRealVideoUrl(payload, jobId)
-        : splitTranscript(payload.transcriptText);
+      if (shouldProcessRealUrl) {
+        job.cues = await processRealVideoUrl(payload, jobId, useAiNotes);
+      } else {
+        const cues = splitTranscript(payload.transcriptText);
+        job.cues = useAiNotes ? await annotateCues(cues) : cues;
+      }
       job.status = "completed";
     } catch (error) {
       job.status = "failed";
@@ -714,6 +1020,9 @@ function handleHealth(response) {
 async function handleSubtitleDiagnostics(response) {
   const ffmpeg = await checkCommand(ffmpegPath);
   const openaiReady = Boolean(process.env.OPENAI_API_KEY);
+  const aiNotesReady = aiProvider === "openai"
+    ? Boolean(process.env.OPENAI_API_KEY)
+    : Boolean(process.env.MINIMAX_API_KEY);
   sendJson(response, 200, {
     ok: ffmpeg.ok && openaiReady,
     realUrlReady: ffmpeg.ok && openaiReady,
@@ -726,6 +1035,12 @@ async function handleSubtitleDiagnostics(response) {
       ok: openaiReady,
       transcriptionModel: openaiTranscribeModel,
       annotationModel: openaiModel
+    },
+    aiNotes: {
+      ok: aiNotesReady,
+      provider: aiProvider,
+      model: getActiveModel(),
+      detail: aiNotesReady ? "" : aiProvider === "openai" ? "缺少 OPENAI_API_KEY" : "缺少 MINIMAX_API_KEY"
     },
     limits: {
       maxVideoMb: Math.round(maxVideoBytes / 1024 / 1024),
@@ -769,6 +1084,46 @@ const server = createServer(async (request, response) => {
 
   if (request.method === "POST" && request.url === "/api/ai/chat") {
     await handleAiChat(request, response);
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/videos") {
+    await handleVideosIndex(response);
+    return;
+  }
+
+  const videoDetailMatch = url.pathname.match(/^\/api\/videos\/([^/]+)\/detail$/);
+  if (request.method === "GET" && videoDetailMatch) {
+    await handleVideoDetail(response, decodeURIComponent(videoDetailMatch[1]));
+    return;
+  }
+
+  const videoSubtitlesMatch = url.pathname.match(/^\/api\/videos\/([^/]+)\/subtitles$/);
+  if (request.method === "GET" && videoSubtitlesMatch) {
+    await handleVideoSubtitles(response, decodeURIComponent(videoSubtitlesMatch[1]));
+    return;
+  }
+
+  const videoHighlightsMatch = url.pathname.match(/^\/api\/videos\/([^/]+)\/subtitle-highlights$/);
+  if (request.method === "GET" && videoHighlightsMatch) {
+    await handleVideoSubtitleHighlights(response, decodeURIComponent(videoHighlightsMatch[1]));
+    return;
+  }
+
+  const closeReadingMatch = url.pathname.match(/^\/api\/learning\/videos\/([^/]+)\/close-reading$/);
+  if (request.method === "GET" && closeReadingMatch) {
+    await handleCloseReading(response, decodeURIComponent(closeReadingMatch[1]));
+    return;
+  }
+
+  const progressMatch = url.pathname.match(/^\/api\/user\/video-progress\/([^/]+)$/);
+  if (request.method === "GET" && progressMatch) {
+    await handleGetVideoProgress(request, response, decodeURIComponent(progressMatch[1]));
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/user/video-progress") {
+    await handleUpsertVideoProgress(request, response);
     return;
   }
 

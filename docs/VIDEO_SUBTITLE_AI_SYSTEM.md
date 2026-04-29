@@ -11,7 +11,7 @@
 - 本地数据：`data/subtitle-jobs.json`
 - 视频预览：浏览器本地 `File` 对象或直链视频 URL
 - 字幕生成：视频直链可走真实 FFmpeg + OpenAI transcription；粘贴英文稿时走手动稿件切分
-- AI 批注：优先调用真实 AI；批注失败时保留字幕并给出可手动补充的备注
+- 学习备注：默认生成可手动填写的备注模板；用户打开 AI 备注后才调用 MiniMax/OpenAI 生成批注
 - 导出：Markdown、Word、SRT、VTT、JSON
 
 这样可以先验证完整产品闭环：选择本地视频或输入视频链接、生成字幕、点击字幕跳转、编辑字幕/备注、导出学习资料。
@@ -194,11 +194,13 @@ MVP 使用方式：
 
 - `OPENAI_API_KEY`：语音识别和 AI 批注。
 - `OPENAI_TRANSCRIBE_MODEL`：默认 `whisper-1`。
+- `AI_PROVIDER`：学习备注模型供应商，默认建议 `minimax`。
+- `MINIMAX_API_KEY`：使用 MiniMax 自动生成学习备注时需要。
 - `FFMPEG_PATH`：默认使用系统 `ffmpeg`。
 - `VIDEO_MAX_BYTES`：默认约 120MB。
 - `SUBTITLE_MAX_CUES`：默认最多批注前 40 条字幕。
 
-页面会调用 `GET /api/subtitle/diagnostics` 检查真实解析是否就绪。如果 FFmpeg 或 `OPENAI_API_KEY` 缺失，页面会显示“真实直链解析待配置”，但仍可通过粘贴英文稿测试字幕编辑和导出。
+页面会调用 `GET /api/subtitle/diagnostics` 检查真实解析是否就绪。如果 FFmpeg 或 `OPENAI_API_KEY` 缺失，页面会显示“真实直链解析待配置”，但仍可通过粘贴英文稿测试字幕编辑和导出。AI 学习备注是可选能力，关闭时不会调用大模型，只保留可手动填写的翻译、词汇、语法、口语表达和跟读建议字段。
 
 ## 5. 下一步实现顺序
 
@@ -210,3 +212,16 @@ MVP 使用方式：
 6. 把本地 JSON 存储迁移到 PostgreSQL。
 7. 将 Word 导出从 HTML `.doc` 升级为真实 `.docx`。
 8. 加入用户登录、权限隔离和历史任务列表。
+## 6. SpeakVlog-style API compatibility
+
+To prepare for a future production learning app, SpeakFlow now also exposes a video-learning API layer separate from the subtitle-lab job API:
+
+- `GET /api/videos`
+- `GET /api/videos/:videoId/detail`
+- `GET /api/videos/:videoId/subtitles`
+- `GET /api/videos/:videoId/subtitle-highlights`
+- `GET /api/learning/videos/:videoId/close-reading`
+- `GET /api/user/video-progress/:videoId`
+- `POST /api/user/video-progress`
+
+These endpoints currently use a local seed store at `data/app-data.json`. The goal is to keep the UI independent from the final database choice and make the later PostgreSQL migration mechanical.

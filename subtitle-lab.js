@@ -2,6 +2,7 @@ const form = document.querySelector("#subtitle-job-form");
 const fileInput = document.querySelector("#video-file");
 const urlInput = document.querySelector("#video-url");
 const transcriptInput = document.querySelector("#transcript-text");
+const useAiNotesInput = document.querySelector("#use-ai-notes");
 const video = document.querySelector("#subtitle-video");
 const emptyVideo = document.querySelector("#empty-video");
 const cueList = document.querySelector("#subtitle-cue-list");
@@ -15,6 +16,7 @@ function renderDiagnostics(data) {
   const items = [
     data.ffmpeg?.ok ? `FFmpeg 已就绪：${data.ffmpeg.path}` : `FFmpeg 未就绪：${data.ffmpeg?.detail || "请安装 FFmpeg 或配置 FFMPEG_PATH"}`,
     data.openai?.ok ? `OpenAI 已配置：${data.openai.transcriptionModel}` : "OpenAI API Key 未配置：请在 .env 中填写 OPENAI_API_KEY",
+    data.aiNotes?.ok ? `AI 备注可用：${data.aiNotes.provider}` : `AI 备注未启用：${data.aiNotes?.detail || "可先使用人工备注模板"}`,
     `视频大小限制：${data.limits?.maxVideoMb || 120}MB`
   ];
 
@@ -164,11 +166,12 @@ async function createJob(event) {
   event.preventDefault();
   const file = fileInput.files[0];
   const sourceUrl = urlInput.value.trim();
+  const useAiNotes = Boolean(useAiNotesInput?.checked);
   if (!bindVideoUrlPreview(sourceUrl)) bindVideoPreview(file);
   statusLabel.textContent = "处理中";
   cueList.innerHTML = sourceUrl && !transcriptInput.value.trim()
-    ? '<p class="subtitle-empty-state">正在下载视频、提取音频并进行真实语音识别，短视频通常需要几十秒...</p>'
-    : '<p class="subtitle-empty-state">正在切分字幕并生成学习备注...</p>';
+    ? `<p class="subtitle-empty-state">正在下载视频、提取音频并进行真实语音识别${useAiNotes ? "，随后调用 MiniMax 生成学习备注" : "，备注将生成可手动填写的模板"}...</p>`
+    : `<p class="subtitle-empty-state">正在切分字幕${useAiNotes ? "并调用 MiniMax 生成学习备注" : "并生成手动备注模板"}...</p>`;
 
   const response = await fetch("/api/subtitle/jobs", {
     method: "POST",
@@ -176,6 +179,7 @@ async function createJob(event) {
     body: JSON.stringify({
       sourceType: sourceUrl ? "url" : "file",
       sourceUrl,
+      useAiNotes,
       fileName: sourceUrl || file?.name || "demo-video.mp4",
       title: sourceUrl ? getTitleFromUrl(sourceUrl) : file?.name ? file.name.replace(/\.[^.]+$/, "") : "SpeakFlow Demo",
       transcriptText: transcriptInput.value
