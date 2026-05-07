@@ -339,7 +339,12 @@ function getVideoLearningState(video) {
 }
 
 function getLibrarySearchText() {
-  return document.querySelector("#library-search")?.value.trim().toLowerCase() || "";
+  const input = document.querySelector("#library-search");
+  if (!input) return "";
+  if (!input.value) {
+    input.value = new URLSearchParams(window.location.search).get("q") || "";
+  }
+  return input.value.trim().toLowerCase();
 }
 
 function matchesSearch(video, searchText) {
@@ -469,8 +474,10 @@ function renderHomePage() {
 
   const startLink = document.querySelector("#home-start-link");
   const featuredLink = document.querySelector("#home-featured-link");
+  const floatingLink = document.querySelector("#home-floating-link");
   if (startLink) startLink.href = `learn.html?video=${pick.id}`;
   if (featuredLink) featuredLink.href = `learn.html?video=${pick.id}`;
+  if (floatingLink) floatingLink.href = `learn.html?video=${pick.id}`;
 
   const featuredTitle = document.querySelector("#home-featured-title");
   if (featuredTitle) featuredTitle.textContent = pick.title;
@@ -493,6 +500,15 @@ function renderHomePage() {
   if (newVideos) {
     const latestVideos = [...videos].slice(0, 4);
     newVideos.innerHTML = latestVideos.map(createHomeVideoRow).join("");
+  }
+
+  const homeSearch = document.querySelector(".dashboard-search-form");
+  if (homeSearch) {
+    homeSearch.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const query = document.querySelector("#home-search")?.value.trim() || "";
+      window.location.href = query ? `library.html?q=${encodeURIComponent(query)}` : "library.html";
+    }, { once: true });
   }
 }
 

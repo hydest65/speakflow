@@ -6,75 +6,132 @@
   <title>首页 | SpeakVlog</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body data-page="home" class="speakvlog-home sv-calm-home sv-home-b">
-  <header class="topbar sv-topbar">
-    <a class="logo sv-brand" href="index.html" aria-label="SpeakVlog 首页">
-      <span class="logo-mark sv-brand-mark"><span></span></span>
-      <span class="logo-type"><strong>SpeakVlog</strong><small>Real Video Speaking Lab</small></span>
-    </a>
-    <nav class="pill-nav sv-nav" aria-label="主导航">
-      <a class="active" href="index.html">首页</a>
-      <a href="library.html">视频库</a>
-      <a href="favorites.html">收藏夹</a>
-      <a href="tips.html">学习卡片</a>
-      <a href="ai.html">AI 陪练</a>
-      <a href="pricing.html">会员</a>
+<body data-page="home" class="speakvlog-home sv-calm-home sv-home-b sv-dashboard-home">
+  <a class="dashboard-brand dashboard-brand-float" href="index.html" aria-label="SpeakVlog 首页">
+    <span class="dashboard-brand-mark">S</span>
+    <span><strong>SpeakVlog</strong><small>Speaking Lab</small></span>
+  </a>
+
+  <aside class="dashboard-rail" aria-label="主导航">
+    <nav class="dashboard-nav">
+      <a class="active" href="index.html"><span>H</span>首页</a>
+      <a href="library.html"><span>V</span>视频库</a>
+      <a href="favorites.html"><span>F</span>收藏夹</a>
+      <a href="tips.html"><span>C</span>学习卡片</a>
+      <a href="ai.html"><span>AI</span>AI 陪练</a>
+      <a href="pricing.html"><span>P</span>会员</a>
     </nav>
-  </header>
+    <a class="dashboard-floating-action" id="home-floating-link" href="learn.html">开始训练</a>
+  </aside>
 
-  <main class="home-b-shell">
-    <section class="home-b-hero" aria-label="安静学习入口">
-      <div class="home-b-copy">
-        <span class="sv-pill">Quiet Practice</span>
-        <h1>安静进入状态，然后开始今天的听说训练。</h1>
-        <p>每天只要 8 分钟。听清一句，跟读一句，把一个真实表达变成自己的话。</p>
-        <div class="home-b-actions">
-          <a class="button primary" id="home-start-link" href="learn.html">开始今天</a>
-          <a class="button secondary" href="library.html">换一个片段</a>
-        </div>
+  <main class="dashboard-shell">
+    <header class="dashboard-topbar">
+      <div>
+        <span class="dashboard-kicker">Quiet Practice</span>
+        <h1>今天只专注一段真实表达。</h1>
       </div>
+      <form class="dashboard-search-form" action="library.html" role="search">
+        <input id="home-search" name="q" type="search" placeholder="搜索视频、主题" aria-label="搜索视频、主题">
+        <button type="submit">Search</button>
+      </form>
+    </header>
 
-      <aside class="home-b-progress" aria-label="学习进度与成就">
-        <span class="sv-pill">Learner Board</span>
-        <div class="home-b-ring" aria-label="本周目标进度">72%</div>
-        <h2>本周目标进度</h2>
-        <p>还差 2 次轻量训练，就完成本周计划。</p>
-        <div class="home-b-stats" id="home-student-stats">
-          <div><strong>0 天</strong><span>连续学习</span></div>
-          <div><strong>0 句</strong><span>今日句子</span></div>
-          <div><strong>--</strong><span>最近评分</span></div>
-        </div>
+    <div class="dashboard-grid">
+      <section class="dashboard-main" aria-label="今日学习数据">
+        <article class="dashboard-card dashboard-hero-card">
+          <div class="dashboard-card-head">
+            <div>
+              <span class="dashboard-muted">今日训练任务</span>
+              <h2 id="home-featured-title">今日推荐片段</h2>
+            </div>
+            <span class="dashboard-chip">8 min</span>
+          </div>
+          <p id="home-featured-summary">不需要看很多内容。选一段，完成一次专注训练。</p>
+          <div class="dashboard-metrics">
+            <div>
+              <strong>72%</strong>
+              <span>本周目标</span>
+            </div>
+            <div>
+              <strong>3</strong>
+              <span>今日句子</span>
+            </div>
+            <div>
+              <strong>85</strong>
+              <span>参考评分</span>
+            </div>
+          </div>
+          <div class="dashboard-actions">
+            <a class="button primary" id="home-start-link" href="learn.html">开始今天</a>
+            <a class="button secondary" id="home-featured-link" href="learn.html">进入学习空间</a>
+          </div>
+        </article>
+
+        <section class="dashboard-card dashboard-lessons" aria-label="新上片段">
+          <div class="dashboard-card-head">
+            <div>
+              <span class="dashboard-muted">New Lessons</span>
+              <h2>新上片段</h2>
+            </div>
+            <a href="library.html">View All</a>
+          </div>
+          <div class="home-b-new-list" id="home-new-videos"></div>
+        </section>
+      </section>
+
+      <aside class="dashboard-side" aria-label="学习记录与快捷操作">
+        <section class="dashboard-card dashboard-calendar" aria-label="学习日历盘">
+          <div class="dashboard-card-head">
+            <div>
+              <span class="dashboard-muted">Practice Calendar</span>
+              <h2>六月训练盘</h2>
+            </div>
+            <span class="dashboard-chip soft">Today</span>
+          </div>
+          <div class="calendar-summary">
+            <strong>12</strong>
+            <span>本月完成训练</span>
+          </div>
+          <div class="calendar-weekdays" aria-hidden="true">
+            <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+          </div>
+          <div class="calendar-grid" aria-label="六月练习日历">
+            <span class="muted">27</span><span class="muted">28</span><span class="muted">29</span><span class="muted">30</span><span class="muted">31</span><span>1</span><span>2</span>
+            <span class="done">3</span><span>4</span><span class="done">5</span><span>6</span><span>7</span><span class="done">8</span><span>9</span>
+            <span>10</span><span class="done">11</span><span>12</span><span class="done">13</span><span class="done">14</span><span class="done">15</span><span>16</span>
+            <span>17</span><span class="today">18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span>
+            <span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span>
+          </div>
+          <div class="calendar-legend">
+            <span><i></i> 已完成</span>
+            <span><i></i> 今天</span>
+          </div>
+        </section>
+
+        <section class="dashboard-card dashboard-tip-card">
+          <h2>怎样让跟读更自然？</h2>
+          <p>先跟语调，再跟字幕。每次只修正一个发音点，进步会更稳。</p>
+          <a href="tips.html">Learn more</a>
+        </section>
+
+        <section class="dashboard-card dashboard-quick-card">
+          <div class="dashboard-card-head">
+            <div>
+              <span class="dashboard-muted">Quick start</span>
+              <h2>下一次训练</h2>
+            </div>
+            <span class="dashboard-chip soft">Today</span>
+          </div>
+          <div class="quick-users" aria-hidden="true">
+            <span>+</span><span>8m</span><span>AI</span><span>72</span>
+          </div>
+          <strong>3 句训练</strong>
+          <a class="dashboard-send" href="learn.html">Start</a>
+        </section>
       </aside>
-    </section>
-
-    <section class="home-b-focus" aria-label="今日学习与提示">
-      <article class="home-b-card home-b-today">
-        <span class="sv-pill">Today</span>
-        <h2 id="home-featured-title">今日推荐片段</h2>
-        <p id="home-featured-summary">不需要看很多内容。选一段，完成一次专注训练。</p>
-        <a class="home-b-link" id="home-featured-link" href="learn.html">进入学习空间</a>
-      </article>
-      <article class="home-b-card">
-        <span class="sv-pill">Tip</span>
-        <h2>先听节奏，再看字幕。</h2>
-        <p>今天的练习重点不是背单词，而是让一句话听起来更自然。</p>
-      </article>
-      <article class="home-b-card">
-        <span class="sv-pill">Achievement</span>
-        <h2>点亮今天的打卡。</h2>
-        <p>完成 3 句跟读后，今天就算真正开始过。</p>
-      </article>
-    </section>
-
-    <section class="home-b-new" aria-label="新上视频文字信息">
-      <div class="home-b-section-head">
-        <span class="sv-pill">New Lessons</span>
-        <h2>新上片段</h2>
-        <p>这里只放文字信息。想看具体内容时，再进入视频库。</p>
-      </div>
-      <div class="home-b-new-list" id="home-new-videos"></div>
-    </section>
+    </div>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
